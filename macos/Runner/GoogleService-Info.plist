@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>325591603918-g0rijelvclmoven2q6i32v4kmf8ofkeg.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.325591603918-g0rijelvclmoven2q6i32v4kmf8ofkeg</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDyy05xyGzF-_A9GVVXa7V0u1TwaSfz7W0</string>
+	<key>GCM_SENDER_ID</key>
+	<string>325591603918</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.shaurChatApp</string>
+	<key>PROJECT_ID</key>
+	<string>shaur-chat</string>
+	<key>STORAGE_BUCKET</key>
+	<string>shaur-chat.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:325591603918:ios:d96b809a88d276f1ff0e9f</string>
+</dict>
+</plist>
