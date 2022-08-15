@@ -1,36 +1,124 @@
 import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/auth.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:shaur_chat_app/screens/home/homepage.dart';
+import 'package:shaur_chat_app/screens/login/signup_screen.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  LoginScreenState createState() => LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
-    var user = FirebaseAuth.instance.currentUser;
-    if (user != null) {
-            Future.delayed(Duration.zero, () {
-        Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => HomePage()));
-      });
-    }
-    return Center(
-      child: PhoneInputScreen(
-        headerBuilder: (context, constraints, shrinkOffset) {
-          return Padding(
-            padding: const EdgeInsets.all(20),
-            child: Icon(
-              Icons.phone,
-              color: Colors.blue,
-              size: constraints.maxWidth / 4 * (1 - shrinkOffset),
+    return Container(
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+            image: AssetImage('assets/images/login.png'), fit: BoxFit.cover),
+      ),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: Stack(children: [
+          Container(
+            padding: const EdgeInsets.only(left: 35, top: 80),
+            child: const Text(
+              "Welcome\nBack",
+              style: TextStyle(color: Colors.white, fontSize: 33),
             ),
-          );
-        },
+          ),
+          SingleChildScrollView(
+            child: Container(
+              padding: EdgeInsets.only(
+                  right: 35,
+                  left: 35,
+                  top: MediaQuery.of(context).size.height * 0.5),
+              child: Column(children: [
+                TextField(
+                  decoration: InputDecoration(
+                    fillColor: Colors.grey.shade100,
+                    filled: true,
+                    hintText: 'Email',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                TextField(
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    fillColor: Colors.grey.shade100,
+                    filled: true,
+                    hintText: 'Password',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 40,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      'Sign In',
+                      style: TextStyle(
+                        color: Color(0xff4c505b),
+                        fontSize: 27,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    CircleAvatar(
+                      radius: 30,
+                      backgroundColor: const Color(0xff4c505b),
+                      child: IconButton(
+                        color: Colors.white,
+                        onPressed: () {},
+                        icon: const Icon(Icons.arrow_forward),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 40,
+                ),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pushReplacement(context,
+                              MaterialPageRoute(builder: (context) => SignUpScreen()));
+                        },
+                        child: const Text(
+                          'Sign Up',
+                          style: TextStyle(
+                            decoration: TextDecoration.underline,
+                            fontSize: 18,
+                            color: Color(0xff4c505b),
+                          ),
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () {},
+                        child: const Text(
+                          'Forgot Password',
+                          style: TextStyle(
+                            decoration: TextDecoration.underline,
+                            fontSize: 18,
+                            color: Color(0xff4c505b),
+                          ),
+                        ),
+                      ),
+                    ]),
+              ]),
+            ),
+          ),
+        ]),
       ),
     );
   }

@@ -42,6 +42,7 @@ dependencies:
   contacts_service: ^0.6.3
   flutter_contacts: ^1.1.5
   url_launcher: ^6.1.5
+  fluttertoast: ^8.0.9
 
 dev_dependencies:
   flutter_test:
@@ -97,3 +98,4 @@ flutter:
   # see https://flutter.dev/custom-fonts/#from-packages
   assets:
     - assets/logo/
+    - assets/images/

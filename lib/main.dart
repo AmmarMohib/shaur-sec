@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shaur_chat_app/screens/login/login_screen.dart';
+import 'package:shaur_chat_app/screens/login/signup_screen.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -42,7 +43,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return const LoginScreen();
+    return const SignUpScreen();
   }
 }
 // import 'dart:io';

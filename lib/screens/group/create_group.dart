@@ -50,7 +50,7 @@ class _CreateGroupState extends State<CreateGroup> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => FlutterContactsExample()));
+                              builder: (context) => Contacts()));
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
