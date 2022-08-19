@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import 'package:shaur_chat_app/screens/contacts/contacts.dart';
+import 'package:shaur_chat_app/screens/home/homepage.dart';
 
 class CreateGroup extends StatefulWidget {
   const CreateGroup({super.key});
@@ -10,6 +12,9 @@ class CreateGroup extends StatefulWidget {
 }
 
 class _CreateGroupState extends State<CreateGroup> {
+  var tmpArray = [];
+  final Stream<QuerySnapshot> _usersStream =
+      FirebaseFirestore.instance.collection('users').snapshots();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -42,6 +47,32 @@ class _CreateGroupState extends State<CreateGroup> {
                     fontWeight: FontWeight.bold),
               ),
             ),
+            StreamBuilder<QuerySnapshot>(
+                stream: _usersStream,
+                builder: (BuildContext context,
+                    AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (snapshot.hasError) {
+                    return Text('Something went wrong');
+                  }
+
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Text("Loading");
+                  }
+
+                  return ListView(
+                    shrinkWrap: true,
+                        scrollDirection: Axis.vertical,
+                    children:
+                        snapshot.data!.docs.map((DocumentSnapshot document) {
+                      Map<String, dynamic> data =
+                          document.data()! as Map<String, dynamic>;
+                      return ListTile(
+                        // title: Text(data['contacts'][0.50]['displayName']),
+                        // subtitle: Text(data['company']),
+                      );
+                    }).toList(),
+                  );
+                }),
             Center(
               child: Container(
                   width: MediaQuery.of(context).size.width * 0.9,
@@ -50,7 +81,7 @@ class _CreateGroupState extends State<CreateGroup> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => Contacts()));
+                              builder: (context) => MyHomePage()));
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,

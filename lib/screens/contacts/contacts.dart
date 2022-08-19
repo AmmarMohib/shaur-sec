@@ -1,11 +1,11 @@
-// import 'dart:typed_data';
-// import 'package:flutter/material.dart';
-// import 'package:flutter_contacts/flutter_contacts.dart';
-// import 'package:flutterfire_ui/auth.dart';
-// import 'package:flutter_contacts/flutter_contacts.dart';
+// // import 'dart:typed_data';
+// // import 'package:flutter/material.dart';
+// // import 'package:flutter_contacts/flutter_contacts.dart';
+// // import 'package:flutterfire_ui/auth.dart';
+// // import 'package:flutter_contacts/flutter_contacts.dart';
 // import 'package:shaur_chat_app/screens/contacts/checklist.dart';
-// // Import package
-// // import 'package:contacts_service/contacts_service.dart';
+// // // Import package
+// // // import 'package:contacts_service/contacts_service.dart';
 
 // class FlutterContactsExample extends StatefulWidget {
 //   @override
@@ -216,7 +216,7 @@
 //                     //     MaterialPageRoute(
 //                     //         builder: (context) =>
 //                     //             // CreateGroup()));
-//                     addCon();
+//                     addCon;
 //                   },
 //                   child: Text(
 //                     "Add Them",
@@ -235,160 +235,311 @@
 //     // print(peoples[peoples.length]);
 //     // if(valuer)
 //     // var foo = checkListItems;
-//     var val = checkListItems.where((c) => c["value"] == true).length;
-//     if (val!= null) {
-//       print(_contacts[val-1].id);
-//     }
+//     checkListItems.forEach((key) {
+//       if (key == true) {
+//         print(key);
+//       }
+//     });
+//     // var val = checkListItems.where((c) => c["value"] == true).length;
+//     // if (val!= null) {
+//     //   print(_contacts[val-1].id);
+//     // }
 //     // print(checkListItems);
 //   }
 // }
 
+// // ignore_for_file: non_constant_identifier_names, unnecessary_null_comparison, await_only_futures, unused_import
 
+// // import 'dart:developer';
 
+// // import 'package:cloud_firestore/cloud_firestore.dart';
+// // import 'package:contacts_service/contacts_service.dart';
+// // import 'package:firebase_auth/firebase_auth.dart';
+// // import 'package:flutter/cupertino.dart';
+// // import 'package:flutter/material.dart';
 
+// // class Contacts extends StatefulWidget {
+// //   const Contacts({Key? key}) : super(key: key);
 
-// ignore_for_file: non_constant_identifier_names, unnecessary_null_comparison, await_only_futures, unused_import
+// //   @override
+// //   State<Contacts> createState() => _ContactsState();
+// // }
 
-import 'dart:developer';
+// // class _ContactsState extends State<Contacts> {
+// //   List<Contact>? Allcontacts;
+// //   List<Contact>? chPhones;
+// //   var fireUserUID;
+// //   var fireUserData;
+// //   List<Item> phones = [];
+// //   var firephonenum;
+// //   @override
+// //   void initState() {
+// //     super.initState();
+// //     abc();
+// //   }
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:contacts_service/contacts_service.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
+// //   Widget build(BuildContext context) {
+// //     // ));
+// //     final Stream<QuerySnapshot> _usersStream =
+// //         FirebaseFirestore.instance.collection('numbers&avatars').snapshots();
+// //     return StreamBuilder<QuerySnapshot>(
+// //       stream: _usersStream,
+// //       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+// //         if (snapshot.hasError) {
+// //           return Text('Something went wrong');
+// //         }
+
+// //         if (snapshot.connectionState == ConnectionState.waiting) {
+// //           return Text("Loading");
+// //         }
+
+// //         return ListView(
+// //           children: snapshot.data!.docs.map((DocumentSnapshot document) {
+// //             Map<String, dynamic> data =
+// //                 document.data()! as Map<String, dynamic>;
+// //             return ListTile(
+// //                 onTap: () => contactpopup(
+// //                     data['Uid'], data['avatar'], data['name'], data['num']),
+// //                 leading: data != null
+// //                     ? ClipOval(
+// //                         child: CircleAvatar(
+// //                         backgroundImage: NetworkImage(data['avatar']),
+// //                       ))
+// //                     : CircleAvatar(
+// //                         maxRadius: 60,
+// //                         child: Icon(
+// //                           Icons.account_circle_rounded,
+// //                           size: 128,
+// //                         ),
+// //                         // backgroundColor: Colors.transparent,
+// //                       ),
+// //                 title: Text(data['name']));
+// //           }).toList(),
+// //         );
+// //       },
+// //     );
+// //   }
+
+// //   abc() async {
+// //     List<Contact> contacts =
+// //         await ContactsService.getContacts(withThumbnails: false);
+// //     await FirebaseFirestore.instance
+// //         .collection("numbers&avatars")
+// //         .get()
+// //         .then((QuerySnapshot querySnapshot) {
+// //       querySnapshot.docs.forEach((doc) {
+// //         print(doc.get('num').toString().length);
+// //         // print("id" + doc.id);
+// //       });
+// //     });
+
+// //     List<Contact> johns =
+// //         await ContactsService.getContactsForPhone(firephonenum.toString());
+
+// //     //     if(contacts != null){
+// //     //   var fcontact = int.parse(contacts.toString());
+// //     //   setState(() {
+// //     //     Allcontacts = fcontact.toString() as List<Contact>;
+// //     //   });
+// //     // }
+// //     setState(() {
+// //       Allcontacts = contacts;
+// //       chPhones = johns;
+// //     });
+// //     var a = contacts.map((e) => e.displayName);
+// //     var b = contacts;
+// //     if (a != null) {
+// //       print(a);
+// //     } else {
+// //       print(b);
+// //     }
+// //     // Get all contacts without thumbnail (faster)
+// //     print(johns.map((e) => e.phones!.first.value));
+// //     var ag = await firephonenum;
+// //     print("the data : " + await ag.toString().characters.toString());
+// //   }
+
+// //   Future contactpopup(String string, data, name, num) {
+// //     return showDialog(
+// //         context: context,
+// //         builder: (BuildContext context) {
+// //           return AlertDialog(
+// //               content: Stack(
+// //             clipBehavior: Clip.antiAlias,
+// //             children: <Widget>[
+// //               TextButton(
+// //                   onPressed: () => firepush(string, data, name, num),
+// //                   child: Text(
+// //                     "chat with contact",
+// //                     style: TextStyle(color: Colors.black),
+// //                   )),
+// //             ],
+// //           ));
+// //         });
+// //   }
+
+// //   firepush(string, data, name, num) {
+// //     print(string);
+// //     print(FirebaseAuth.instance.currentUser!.phoneNumber);
+// //     print(string);
+// //     // Navigator.push(
+// //     //     context,
+// //     //     MaterialPageRoute(
+// //     //         builder: (context) => ChattingPage(
+// //     //               uid: string.toString(),
+// //     //               avatar: data,
+// //     //               name: name,
+// //     //               num: num,
+// //     //             )));
+// //   }
+// // }
+
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_contacts/flutter_contacts.dart';
+import 'package:shaur_chat_app/screens/contacts/checklist.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shaur_chat_app/screens/group/create_group.dart';
 
-class Contacts extends StatefulWidget {
-  const Contacts({Key? key}) : super(key: key);
-
-  @override
-  State<Contacts> createState() => _ContactsState();
-}
-
-class _ContactsState extends State<Contacts> {
-  List<Contact>? Allcontacts;
-  List<Contact>? chPhones;
-  var fireUserUID;
-  var fireUserData;
-  List<Item> phones = [];
-  var firephonenum;
-  @override
-  void initState() {
-    super.initState();
-    abc();
-  }
-
-  Widget build(BuildContext context) {
-    // ));
-    final Stream<QuerySnapshot> _usersStream =
-        FirebaseFirestore.instance.collection('numbers&avatars').snapshots();
-    return StreamBuilder<QuerySnapshot>(
-      stream: _usersStream,
-      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-        if (snapshot.hasError) {
-          return Text('Something went wrong');
-        }
-
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Text("Loading");
-        }
-
-        return ListView(
-          children: snapshot.data!.docs.map((DocumentSnapshot document) {
-            Map<String, dynamic> data =
-                document.data()! as Map<String, dynamic>;
-            return ListTile(
-                onTap: () => contactpopup(
-                    data['Uid'], data['avatar'], data['name'], data['num']),
-                leading: data != null
-                    ? ClipOval(
-                        child: CircleAvatar(
-                        backgroundImage: NetworkImage(data['avatar']),
-                      ))
-                    : CircleAvatar(
-                        maxRadius: 60,
-                        child: Icon(
-                          Icons.account_circle_rounded,
-                          size: 128,
-                        ),
-                        // backgroundColor: Colors.transparent,
-                      ),
-                title: Text(data['name']));
-          }).toList(),
-        );
-      },
-    );
-  }
-
-  abc() async {
-    List<Contact> contacts =
-        await ContactsService.getContacts(withThumbnails: false);
+class FirestoreApi {
+  static Future uploadContacts(List<Contact> contacts) async {
+    final contactsJson = contacts.map((contact) => contact.toJson()).toList();
+    var docu;
+    var data;
     await FirebaseFirestore.instance
-        .collection("numbers&avatars")
+        .collection('users')
         .get()
         .then((QuerySnapshot querySnapshot) {
       querySnapshot.docs.forEach((doc) {
-        print(doc.get('num').toString().length);
-        // print("id" + doc.id);
+        docu = doc.data();
+        data = doc;
+        print(docu);
       });
     });
-
-    List<Contact> johns =
-        await ContactsService.getContactsForPhone(firephonenum.toString());
-
-    //     if(contacts != null){
-    //   var fcontact = int.parse(contacts.toString());
-    //   setState(() {
-    //     Allcontacts = fcontact.toString() as List<Contact>;
-    //   });
-    // }
-    setState(() {
-      Allcontacts = contacts;
-      chPhones = johns;
-    });
-    var a = contacts.map((e) => e.displayName);
-    var b = contacts;
-    if (a != null) {
-      print(a);
-    } else {
-      print(b);
+    if (docu == null) {
+      //doesnt exist
+      print("dn't exist");
+      var refUser = FirebaseFirestore.instance.collection('users');
+      await refUser.add({
+        // 'username': 'alex',
+        'contacts': contactsJson,
+      });
+    } else if (docu != null) {
+      await data.reference.delete();
+      print("object");
+      var refUser = FirebaseFirestore.instance.collection('users');
+      await refUser.add({
+        // 'username': 'alex',
+        'contacts': contactsJson,
+      });
     }
-    // Get all contacts without thumbnail (faster)
-    print(johns.map((e) => e.phones!.first.value));
-    var ag = await firephonenum;
-    print("the data : " + await ag.toString().characters.toString());
+    // if (refUser) {
+    //   print("object");
+    // } else {
+    //   print("no object");
+    // }
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({Key? key}) : super(key: key);
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  List multipleSelected = [];
+  List<Contact>? selectedcon = [];
+  List<Contact>? contacts;
+  String? con;
+  var i;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getContact();
   }
 
-  Future contactpopup(String string, data, name, num) {
-    return showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-              content: Stack(
-            clipBehavior: Clip.antiAlias,
-            children: <Widget>[
-              TextButton(
-                  onPressed: () => firepush(string, data, name, num),
-                  child: Text(
-                    "chat with contact",
-                    style: TextStyle(color: Colors.black),
-                  )),
-            ],
-          ));
-        });
+  void getContact() async {
+    if (await FlutterContacts.requestPermission()) {
+      contacts = await FlutterContacts.getContacts(
+          withProperties: true, withPhoto: false, withThumbnail: false);
+      print(contacts);
+      setState(() {});
+    }
   }
 
-  firepush(string, data, name, num) {
-    print(string);
-    print(FirebaseAuth.instance.currentUser!.phoneNumber);
-    print(string);
-    // Navigator.push(
-    //     context,
-    //     MaterialPageRoute(
-    //         builder: (context) => ChattingPage(
-    //               uid: string.toString(),
-    //               avatar: data,
-    //               name: name,
-    //               num: num,
-    //             )));
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: Align(
+            alignment: Alignment.bottomLeft,
+            child: const Text(
+              "Add Contacts",
+              style: TextStyle(color: Colors.blue),
+            ),
+          ),
+          centerTitle: true,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: pushcontacts,
+          child: Icon(Icons.done),
+        ),
+        body: (contacts) == null
+            ? Center(child: CircularProgressIndicator())
+            : ListView.builder(
+                itemCount: contacts!.length,
+                itemBuilder: (BuildContext context, int index) {
+                  i = index;
+                  Uint8List? image = contacts![index].photo;
+                  String num = (contacts![index].phones.isNotEmpty)
+                      ? (contacts![index].phones.first.number)
+                      : "--";
+                  return CheckboxListTile(
+                    secondary: (contacts![index].photo == null)
+                        ? const CircleAvatar(child: Icon(Icons.person))
+                        : CircleAvatar(backgroundImage: MemoryImage(image!)),
+                    title: Text(
+                        "${contacts![index].name.first} ${contacts![index].name.last}"),
+                    subtitle: Text(num),
+                    // onTap: () {
+                    //   if (contacts![index].phones.isNotEmpty) {
+                    //     // launch('tel: ${num}');
+                    //   }
+                    // },
+                    value: checkListItems[index]["value"],
+                    onChanged: (bool? value) {
+                      setState(() {
+                        checkListItems[index]["value"] = value;
+                        if (multipleSelected.contains(checkListItems[index])) {
+                          multipleSelected.remove(checkListItems[index]);
+                          selectedcon?.remove(contacts![index]);
+                        } else {
+                          multipleSelected.add(checkListItems[index]);
+                          selectedcon?.add(contacts![index]);
+                        }
+                        con = contacts![index].name.first;
+                        print(con);
+                      });
+                    },
+                  );
+                },
+              ));
+  }
+
+  pushcontacts() async {
+    // var db = FirebaseFirestore.instance;
+    // await db.collection("ex").add({"phones" : selectedcon});
+    await FirestoreApi.uploadContacts(selectedcon!);
+    checkListItems.forEach((element) {
+      element["value"] = false;
+    });
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => CreateGroup()));
+    print(i);
   }
 }

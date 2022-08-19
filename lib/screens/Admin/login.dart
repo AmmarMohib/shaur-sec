@@ -72,20 +72,7 @@ class _AdminLoginState extends State<AdminLogin> {
                       }),
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Checkbox(
-                    value: obscure,
-                    onChanged: (value) {
-                      setState(() {
-                        obscure = value!;
-                      });
-                    },
-                  ),
-                  const Text("Hide or Show password")
-                ],
-              ),
+              
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.01,
               ),

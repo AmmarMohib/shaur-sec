@@ -43,6 +43,7 @@ dependencies:
   flutter_contacts: ^1.1.5
   url_launcher: ^6.1.5
   fluttertoast: ^8.0.9
+  cloud_firestore: ^3.4.5
 
 dev_dependencies:
   flutter_test:
