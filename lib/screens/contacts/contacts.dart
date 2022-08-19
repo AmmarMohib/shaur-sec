@@ -443,12 +443,17 @@ class FirestoreApi {
 }
 
 class MyHomePage extends StatefulWidget {
+  
   const MyHomePage({Key? key}) : super(key: key);
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  @override
+  void dispose() {
+    super.dispose();
+  }
   List multipleSelected = [];
   List<Contact>? selectedcon = [];
   List<Contact>? contacts;
@@ -456,7 +461,6 @@ class _MyHomePageState extends State<MyHomePage> {
   var i;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getContact();
   }
@@ -478,11 +482,10 @@ class _MyHomePageState extends State<MyHomePage> {
             alignment: Alignment.bottomLeft,
             child: const Text(
               "Add Contacts",
-              style: TextStyle(color: Colors.blue),
+              style: TextStyle(color: Colors.white),
             ),
           ),
-          centerTitle: true,
-          backgroundColor: Colors.transparent,
+          backgroundColor: Color.fromRGBO(6, 49, 70, 1.0),
           elevation: 0,
         ),
         floatingActionButton: FloatingActionButton(

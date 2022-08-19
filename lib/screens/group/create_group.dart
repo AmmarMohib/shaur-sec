@@ -61,13 +61,23 @@ class _CreateGroupState extends State<CreateGroup> {
 
                   return ListView(
                     shrinkWrap: true,
-                        scrollDirection: Axis.vertical,
+                    scrollDirection: Axis.vertical,
                     children:
                         snapshot.data!.docs.map((DocumentSnapshot document) {
                       Map<String, dynamic> data =
                           document.data()! as Map<String, dynamic>;
-                      return ListTile(
-                        // title: Text(data['contacts'][0.50]['displayName']),
+                      return ListView.builder(
+                            itemCount: data['contacts'].length,
+                        shrinkWrap: true,
+                        scrollDirection: Axis.vertical,
+                        itemBuilder: (BuildContext context, int index) {
+                          return ListTile(
+                    leading: 
+                         CircleAvatar(child: Icon(Icons.person)),
+                    title: Text(
+                        data['contacts'][index]['displayName'],
+                  ));
+                        },
                         // subtitle: Text(data['company']),
                       );
                     }).toList(),
