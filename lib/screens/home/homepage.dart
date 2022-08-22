@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shaur_chat_app/screens/Admin/login.dart';
+import 'package:shaur_chat_app/screens/group/group_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -65,9 +66,9 @@ class _HomePageState extends State<HomePage> {
               ),
             ]),
           ),
-          // body: TabBarView(
-          //   // children: [Chats(), Chats(), Contacts()],
-          // ),
+          body: TabBarView(
+            children: [Groups(), Groups()],
+          ),
         ));
   }
 }

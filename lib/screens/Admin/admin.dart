@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shaur_chat_app/screens/group/create_group.dart';
+import 'package:shaur_chat_app/screens/home/homepage.dart';
 
 class Admin extends StatefulWidget {
   const Admin({super.key});
@@ -18,7 +19,10 @@ class _AdminState extends State<Admin> {
           elevation: 0,
           leading: IconButton(
             onPressed: () {
-              Navigator.pop(context);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => HomePage()));
             },
             icon: Icon(
               Icons.arrow_back_ios_sharp,

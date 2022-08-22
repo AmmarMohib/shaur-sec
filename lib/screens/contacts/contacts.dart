@@ -442,14 +442,14 @@ class FirestoreApi {
   }
 }
 
-class MyHomePage extends StatefulWidget {
+class Contacts extends StatefulWidget {
   
-  const MyHomePage({Key? key}) : super(key: key);
+  const Contacts({Key? key}) : super(key: key);
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  ContactsState createState() => ContactsState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class ContactsState extends State<Contacts> {
   @override
   void dispose() {
     super.dispose();
@@ -536,13 +536,14 @@ class _MyHomePageState extends State<MyHomePage> {
 
   pushcontacts() async {
     // var db = FirebaseFirestore.instance;
-    // await db.collection("ex").add({"phones" : selectedcon});
-    await FirestoreApi.uploadContacts(selectedcon!);
+    // await db.collection("ex").add({"phones" : selectedcon})
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => CreateGroup(conList: selectedcon,)));
+    // await FirestoreApi.uploadContacts(selectedcon!);
     checkListItems.forEach((element) {
       element["value"] = false;
     });
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => CreateGroup()));
+    
     print(i);
   }
 }
