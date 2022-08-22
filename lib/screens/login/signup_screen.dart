@@ -1,8 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterfire_ui/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:shaur_chat_app/main.dart';
+import 'package:shaur_chat_app/components/custorms/textfield.dart';
 import 'package:shaur_chat_app/screens/Admin/admin.dart';
 import 'package:shaur_chat_app/screens/home/homepage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -21,9 +20,11 @@ class SignUpScreenState extends State<SignUpScreen> {
   TextEditingController _nameCon = TextEditingController();
   TextEditingController _phoneCon = TextEditingController();
   TextEditingController _OtpCon = TextEditingController();
+  TextEditingController _AdOtpCon = TextEditingController();
   bool obscure = true;
   FirebaseAuth auth = FirebaseAuth.instance;
   bool otpVisibility = false;
+  bool AdOtpVisibility = false;
 
   String verificationID = "";
   @override
@@ -92,66 +93,28 @@ class SignUpScreenState extends State<SignUpScreen> {
                         },
                       );
                     }),
-                _groupvalue != "Admin"
-                    ? Column(
-                        children: [
-                          // TextField(
-                          //   decoration: InputDecoration(
-                          //     focusedBorder: OutlineInputBorder(
-                          //       borderRadius: BorderRadius.circular(10),
-                          //       borderSide:
-                          //           const BorderSide(color: Colors.black),
-                          //     ),
-                          //     enabledBorder: OutlineInputBorder(
-                          //       borderRadius: BorderRadius.circular(10),
-                          //       borderSide:
-                          //           const BorderSide(color: Colors.white),
-                          //     ),
-                          //     hintText: 'Name',
-                          //     hintStyle: const TextStyle(color: Colors.white),
-                          //   ),
-                          // ),
-                          // const SizedBox(
-                          //   height: 20,
-                          // ),
-                          TextField(
-                            controller: _phoneCon,
-                            decoration: InputDecoration(
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide:
-                                    const BorderSide(color: Colors.black),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide:
-                                    const BorderSide(color: Colors.white),
-                              ),
-                              hintText: 'phone Number',
-                              hintStyle: const TextStyle(color: Colors.white),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Visibility(
-                            child: TextField(
-                              controller: _OtpCon,
-                              decoration: InputDecoration(
-                                hintText: 'OTP',
-                                prefix: Padding(
-                                  padding: EdgeInsets.all(4),
-                                  child: Text(''),
-                                ),
-                              ),
-                              maxLength: 6,
-                              keyboardType: TextInputType.number,
-                            ),
-                            visible: otpVisibility,
-                          ),
-                        ],
-                      )
-                    : Column(
+                if (_groupvalue == "Student")
+                  Column(
+                    children: [
+                      // Imported from components/customs/textfield.dart
+                      CustomTextField(
+                          field_con: _phoneCon,
+                          hint_txt: "Enter Phone, ex: 03218406295"),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Visibility(
+                        child: CustomTextField(
+                            field_con: _OtpCon,
+                            hint_txt: "Enter six digit otp, ex: 032442"),
+                        visible: otpVisibility,
+                      ),
+                    ],
+                  ),
+                if (_groupvalue == "Admin")
+                  Column(
+                    children: [
+                      Column(
                         children: [
                           TextField(
                             controller: _adPassCon,
@@ -187,9 +150,18 @@ class SignUpScreenState extends State<SignUpScreen> {
                           ),
                         ],
                       ),
+                    ],
+                  ),
 
                 const SizedBox(
                   height: 20,
+                ),
+                Visibility(
+                  child: CustomTextField(
+                    field_con: _AdOtpCon,
+                    hint_txt: "Enter Otp, sent to you admin",
+                  ),
+                  visible: AdOtpVisibility,
                 ),
                 // const SizedBox(
                 //   height: 30,
@@ -230,12 +202,81 @@ class SignUpScreenState extends State<SignUpScreen> {
                         child: IconButton(
                           color: Colors.white,
                           onPressed: () async {
-                            if (_groupvalue == "Admin" && _adPassCon != null) {
-                              if (_adPassCon.text == "shaur") {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => Admin()));
+                            if (_groupvalue == "Admin") {
+                              if (_adPassCon.text == "shaur" &&
+                                  AdOtpVisibility == false) {
+                                // Navigator.push(
+                                //     context,
+                                //     MaterialPageRoute(
+                                //         builder: (context) => Admin()));
+                                Fluttertoast.showToast(
+                                    msg: 'Wait!, so the app will send you otp',
+                                    fontSize: 20,
+                                    backgroundColor:
+                                        Color.fromRGBO(0, 124, 195, 1.0));
+                                         await FirebaseAuth.instance.verifyPhoneNumber(
+                                  phoneNumber: '+923218406295',
+                                  verificationCompleted:
+                                      (PhoneAuthCredential credential) async {
+                                    // ANDROID ONLY!
+
+                                    // Sign the user in (or link) with the auto-generated credential
+                                    await auth.signInWithCredential(credential);
+                                    Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => HomePage()));
+                                  },
+                                  verificationFailed:
+                                      (FirebaseAuthException e) {
+                                    if (e.code == 'invalid-phone-number') {
+                                      print(
+                                          'The provided phone number is not valid.');
+                                    }
+
+                                    // Handle other errors
+                                  },
+                                  codeSent: (String verificationId,
+                                      int? resendToken) {},
+                                  timeout: const Duration(seconds: 60),
+                                  codeAutoRetrievalTimeout:
+                                      (String verificationId) {
+                                    // Auto-resolution timed out...
+                                  },
+                                );
+                                setState(() {
+                                  AdOtpVisibility = true;
+                                });
+                              } else if (_adPassCon.text == "shaur" &&
+                                  AdOtpVisibility == true) {
+                                print("this is verifyOtp");
+                                    PhoneAuthCredential credential =
+                                        PhoneAuthProvider.credential(
+                                            verificationId: verificationID,
+                                            smsCode: _AdOtpCon.text);
+                                    await auth
+                                        .signInWithCredential(credential)
+                                        .then(
+                                      (value) {
+                                        print("You are logged in successfully");
+                                        Fluttertoast.showToast(
+                                          msg: "You are logged in successfully",
+                                          toastLength: Toast.LENGTH_SHORT,
+                                          gravity: ToastGravity.CENTER,
+                                          timeInSecForIosWeb: 1,
+                                          backgroundColor: Colors.red,
+                                          textColor: Colors.white,
+                                          fontSize: 16.0,
+                                        );
+                                      },
+                                    ).whenComplete(
+                                      () {
+                                        Navigator.of(context).pushReplacement(
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    HomePage()));
+                                      },
+                                    );
                               }
                             } else if (_groupvalue == "Student") {
                               print("object");
