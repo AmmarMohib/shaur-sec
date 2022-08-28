@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shaur_chat_app/screens/Admin/login.dart';
 import 'package:shaur_chat_app/screens/group/group_page.dart';
+import 'package:shaur_chat_app/screens/settings/settings_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -37,8 +38,12 @@ class _HomePageState extends State<HomePage> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => AdminLogin()));
-                    } else if (result == 1) {
+                    } else if (result == 2) {
                       // Fluttertoast.showToast(msg: 'group');
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: ((context) => Settings())));
                     }
                   },
                   color: Colors.white,

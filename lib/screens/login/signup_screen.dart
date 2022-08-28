@@ -214,7 +214,7 @@ class SignUpScreenState extends State<SignUpScreen> {
                                     fontSize: 20,
                                     backgroundColor:
                                         Color.fromRGBO(0, 124, 195, 1.0));
-                                         await FirebaseAuth.instance.verifyPhoneNumber(
+                                await FirebaseAuth.instance.verifyPhoneNumber(
                                   phoneNumber: '+923218406295',
                                   verificationCompleted:
                                       (PhoneAuthCredential credential) async {
@@ -237,8 +237,12 @@ class SignUpScreenState extends State<SignUpScreen> {
                                     // Handle other errors
                                   },
                                   codeSent: (String verificationId,
-                                      int? resendToken) {},
-                                  timeout: const Duration(seconds: 60),
+                                      int? resendToken) {
+                                    setState(() {
+                                      verificationID = verificationId;
+                                    });
+                                  },
+                                  timeout: const Duration(seconds: 120),
                                   codeAutoRetrievalTimeout:
                                       (String verificationId) {
                                     // Auto-resolution timed out...
@@ -250,33 +254,32 @@ class SignUpScreenState extends State<SignUpScreen> {
                               } else if (_adPassCon.text == "shaur" &&
                                   AdOtpVisibility == true) {
                                 print("this is verifyOtp");
-                                    PhoneAuthCredential credential =
-                                        PhoneAuthProvider.credential(
-                                            verificationId: verificationID,
-                                            smsCode: _AdOtpCon.text);
-                                    await auth
-                                        .signInWithCredential(credential)
-                                        .then(
-                                      (value) {
-                                        print("You are logged in successfully");
-                                        Fluttertoast.showToast(
-                                          msg: "You are logged in successfully",
-                                          toastLength: Toast.LENGTH_SHORT,
-                                          gravity: ToastGravity.CENTER,
-                                          timeInSecForIosWeb: 1,
-                                          backgroundColor: Colors.red,
-                                          textColor: Colors.white,
-                                          fontSize: 16.0,
-                                        );
-                                      },
-                                    ).whenComplete(
-                                      () {
-                                        Navigator.of(context).pushReplacement(
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    HomePage()));
-                                      },
+                                PhoneAuthCredential credential =
+                                    PhoneAuthProvider.credential(
+                                        verificationId: verificationID,
+                                        smsCode: _AdOtpCon.text);
+                                await auth
+                                    .signInWithCredential(credential)
+                                    .then(
+                                  (value) {
+                                    print("You are logged in successfully");
+                                    Fluttertoast.showToast(
+                                      msg: "You are logged in successfully",
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.CENTER,
+                                      timeInSecForIosWeb: 1,
+                                      backgroundColor: Colors.red,
+                                      textColor: Colors.white,
+                                      fontSize: 16.0,
                                     );
+                                  },
+                                ).whenComplete(
+                                  () {
+                                    Navigator.of(context).pushReplacement(
+                                        MaterialPageRoute(
+                                            builder: (context) => HomePage()));
+                                  },
+                                );
                               }
                             } else if (_groupvalue == "Student") {
                               print("object");
@@ -314,8 +317,6 @@ class SignUpScreenState extends State<SignUpScreen> {
                                         },
                                         codeSent: (String verificationId,
                                             int? resendToken) {
-                                          otpVisibility = true;
-                                          verificationID = verificationId;
                                           setState(() {});
                                         },
                                         codeAutoRetrievalTimeout:

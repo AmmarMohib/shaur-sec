@@ -11,6 +11,7 @@ class Groups extends StatefulWidget {
 }
 
 class _GroupsState extends State<Groups> {
+  var docId;
   final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
       .collection('Admin')
       .doc("Groups")
@@ -19,6 +20,22 @@ class _GroupsState extends State<Groups> {
 
   @override
   Widget build(BuildContext context) {
+    FirebaseFirestore.instance
+        .collection('Admin')
+        .doc("Groups")
+        .collection("data")
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      // print(doc.id.toString());
+      Future.delayed(Duration.zero, () {
+        var i = 0;
+        // while (i >= querySnapshot.docs.length) {
+        //   print(i);
+        //   // print(querySnapshot.docs.length);
+        // }
+      });
+    });
+
     return StreamBuilder<QuerySnapshot>(
       stream: _usersStream,
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -29,31 +46,55 @@ class _GroupsState extends State<Groups> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Text("Loading");
         }
-
-        return ListView(
-          children: snapshot.data!.docs.map((DocumentSnapshot document) {
-            Map<String, dynamic> data =
-                document.data()! as Map<String, dynamic>;
-            return InkWell(
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => GroupChat(dataGet: data,)));
-              },
-              child: ListTile(
-                  // itemCount: 1,
-                  // shrinkWrap: true,
-                  // scrollDirection: Axis.vertical
-                  leading: CircleAvatar(child: Icon(Icons.groups, color: Colors.white,), backgroundColor: Color.fromRGBO(6, 49, 70, 1.0),),
-                  title: Text(
-                    data['title'],
-                    style: TextStyle(color: Colors.black),
-                  )),
+            return Expanded(
+              child: InkWell(
+                onTap: () {
+                  // print(rng.nextInt(10))]
+                  // docId.add(doc.id);
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (context) => GroupChat(
+                  //               dataGet: data,
+                  //               DOCId: snapshot.data!.docs[0].id,
+                  //             )));
+                },
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: snapshot.data!.docs.length,
+                  itemBuilder: (context, index) => ListTile(
+                    onTap:() {
+                print("fdsad");
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => GroupChat(
+                                dataGet: snapshot.data!.docs[index],
+                                DOCId: snapshot.data!.docs[index].id,
+                              )));
+                    },
+                    // itemCount: 1,
+                    // shrinkWrap: true,
+                    // scrollDirection: Axis.vertical
+                    leading: CircleAvatar(
+                      child: Icon(
+                        Icons.groups,
+                        color: Colors.white,
+                      ),
+                      backgroundColor: Color.fromRGBO(6, 49, 70, 1.0),
+                    ),
+                    title: Text(
+                      snapshot.data!.docs[index]['title'],
+                      style: TextStyle(color: Colors.black),
+                    ),
+                    // subtitle: docId != null ? Text(snapshot.data!.docs[snapshot.data!.docs.length].id) : Text(""),
+                  ),
+                ),
+              ),
             );
+
             // subtitle: Text(data['company']),
-          }).toList(),
-        );
-      },
-    );
+          });
     //   return MaterialApp(
     //     home: Scaffold(
     //       body: TextButton(
