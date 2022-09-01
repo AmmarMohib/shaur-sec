@@ -46,49 +46,36 @@ class _GroupsState extends State<Groups> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Text("Loading");
         }
-            return Expanded(
-              child: InkWell(
-                onTap: () {
-                  // print(rng.nextInt(10))]
-                  // docId.add(doc.id);
-                  // Navigator.push(
-                  //     context,
-                  //     MaterialPageRoute(
-                  //         builder: (context) => GroupChat(
-                  //               dataGet: data,
-                  //               DOCId: snapshot.data!.docs[0].id,
-                  //             )));
-                },
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: snapshot.data!.docs.length,
-                  itemBuilder: (context, index) => ListTile(
-                    onTap:() {
-                print("fdsad");
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => GroupChat(
-                                dataGet: snapshot.data!.docs[index],
-                                DOCId: snapshot.data!.docs[index].id,
-                              )));
-                    },
-                    // itemCount: 1,
-                    // shrinkWrap: true,
-                    // scrollDirection: Axis.vertical
-                    leading: CircleAvatar(
-                      child: Icon(
-                        Icons.groups,
-                        color: Colors.white,
-                      ),
-                      backgroundColor: Color.fromRGBO(6, 49, 70, 1.0),
+            return SingleChildScrollView(
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: snapshot.data!.docs.length,
+                itemBuilder: (context, index) => ListTile(
+                  onTap:() {
+              print("fdsad");
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => GroupChat(
+                              dataGet: snapshot.data!.docs[index],
+                              DOCId: snapshot.data!.docs[index].id,
+                            )));
+                  },
+                  // itemCount: 1,
+                  // shrinkWrap: true,
+                  // scrollDirection: Axis.vertical
+                  leading: CircleAvatar(
+                    child: Icon(
+                      Icons.groups,
+                      color: Colors.white,
                     ),
-                    title: Text(
-                      snapshot.data!.docs[index]['title'],
-                      style: TextStyle(color: Colors.black),
-                    ),
-                    // subtitle: docId != null ? Text(snapshot.data!.docs[snapshot.data!.docs.length].id) : Text(""),
+                    backgroundColor: Color.fromRGBO(6, 49, 70, 1.0),
                   ),
+                  title: Text(
+                    snapshot.data!.docs[index]['title'],
+                    style: TextStyle(color: Colors.black),
+                  ),
+                  // subtitle: docId != null ? Text(snapshot.data!.docs[snapshot.data!.docs.length].id) : Text(""),
                 ),
               ),
             );

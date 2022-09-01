@@ -215,7 +215,7 @@ class SignUpScreenState extends State<SignUpScreen> {
                                     backgroundColor:
                                         Color.fromRGBO(0, 124, 195, 1.0));
                                 await FirebaseAuth.instance.verifyPhoneNumber(
-                                  phoneNumber: '+923218406295',
+                                  phoneNumber: '+92 321 8406295',
                                   verificationCompleted:
                                       (PhoneAuthCredential credential) async {
                                     // ANDROID ONLY!
@@ -232,6 +232,9 @@ class SignUpScreenState extends State<SignUpScreen> {
                                     if (e.code == 'invalid-phone-number') {
                                       print(
                                           'The provided phone number is not valid.');
+                                      Fluttertoast.showToast(
+                                          msg:
+                                              'please enter correct number that exist of 11 numbers');
                                     }
 
                                     // Handle other errors
