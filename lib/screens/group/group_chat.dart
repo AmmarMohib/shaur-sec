@@ -3,7 +3,9 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:intl/intl.dart';
+import 'package:shaur_chat_app/components/customs/speed_dial.dart';
 
 class GroupChat extends StatefulWidget {
   final dataGet;
@@ -235,8 +237,11 @@ class _GroupChatState extends State<GroupChat> {
                                                       fontSize: 10,
                                                     ),
                                                   )
-                                                : const Text("")
+                                                : const Text(""),
                                             // : Container()
+                                            TextButton(onPressed: () {
+                                              Navigator.push(context, MaterialPageRoute(builder: (context) => CustomSpeedDial()));
+                                            }, child: Text("data"))
                                           ],
                                         ),
                                       ],

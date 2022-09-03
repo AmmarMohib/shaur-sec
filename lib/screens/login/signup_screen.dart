@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:shaur_chat_app/components/custorms/textfield.dart';
+import 'package:shaur_chat_app/components/customs/textfield.dart';
 import 'package:shaur_chat_app/screens/Admin/admin.dart';
 import 'package:shaur_chat_app/screens/home/homepage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
