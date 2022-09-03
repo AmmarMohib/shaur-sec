@@ -209,12 +209,17 @@ class _GroupChatState extends State<GroupChat> {
                                           children: [
                                             Container(
                                               width: 300,
-                                              child: data["ar0Z7hs8KsVuottCEpVm9WlPrCO2"] != null ? Text(
-                                                data["ar0Z7hs8KsVuottCEpVm9WlPrCO2"] ??
-                                                    "",
-                                                maxLines: null,
-                                                overflow: TextOverflow.visible,
-                                              ): null,
+                                              child:
+                                                  data["ar0Z7hs8KsVuottCEpVm9WlPrCO2"] !=
+                                                          null
+                                                      ? Text(
+                                                          data["ar0Z7hs8KsVuottCEpVm9WlPrCO2"] ??
+                                                              "",
+                                                          maxLines: null,
+                                                          overflow: TextOverflow
+                                                              .visible,
+                                                        )
+                                                      : null,
                                             ),
                                             // (data[widget.uid] != null)
                                             // ?
@@ -239,9 +244,11 @@ class _GroupChatState extends State<GroupChat> {
                                                   )
                                                 : const Text(""),
                                             // : Container()
-                                            TextButton(onPressed: () {
-                                              Navigator.push(context, MaterialPageRoute(builder: (context) => CustomSpeedDial()));
-                                            }, child: Text("data"))
+                                            TextButton(
+                                                onPressed: () {
+                                                  // buildSpeedDial();
+                                                },
+                                                child: Text("data"))
                                           ],
                                         ),
                                       ],
@@ -278,6 +285,48 @@ class _GroupChatState extends State<GroupChat> {
                     ),
                   ),
                   // Second child is button
+                  SpeedDial(
+      animatedIcon: AnimatedIcons.view_list,
+      animatedIconTheme: IconThemeData(size: 22.0),
+      // this is ignored if animatedIcon is non null
+      // child: Icon(Icons.add),
+      // visible: _dialVisible,
+      curve: Curves.bounceIn,
+      overlayColor: Colors.black,
+      overlayOpacity: 0,
+      // overlayOpacity: 0.5,
+      onOpen: () => print('OPENING DIAL'),
+      onClose: () => print('DIAL CLOSED'),
+      tooltip: 'attach-file',
+      // heroTag: 'speed-dial-hero-tag',
+      backgroundColor: Color.fromRGBO(250, 250, 250, 1.0),
+      foregroundColor: Colors.black,
+      // elevation: 8.0,
+      shape: CircleBorder(),
+      children: [
+        SpeedDialChild(
+          child: Icon(Icons.accessibility),
+          backgroundColor: Colors.red,
+          label: 'First',
+          // labelStyle: TextTheme(fontSize: 18.0),
+          onTap: () => print('FIRST CHILD')
+        ),
+        SpeedDialChild(
+          child: const Icon(Icons.brush),
+          backgroundColor: Colors.blue,
+          label: 'Second',
+          // labelStyle: const TextTheme(fontSize: 18.0),
+          onTap: () => print('SECOND CHILD'),
+        ),
+        SpeedDialChild(
+          child: Icon(Icons.keyboard_voice),
+          backgroundColor: Colors.green,
+          label: 'Third',
+          // labelStyle: TextTheme(fontSize: 18.0),
+          onTap: () => print('THIRD CHILD'),
+        ),
+      ],
+    ),
                   IconButton(
                     icon: const Icon(Icons.send),
                     iconSize: 20.0,
@@ -351,7 +400,8 @@ class _GroupChatState extends State<GroupChat> {
 //                       print(docId);
                       }
                     },
-                  )
+                  ),
+
                 ])),
           ],
         ),
