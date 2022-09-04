@@ -5,7 +5,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:intl/intl.dart';
+import 'package:regexed_validator/regexed_validator.dart';
 import 'package:shaur_chat_app/components/customs/speed_dial.dart';
+import 'package:shaur_chat_app/screens/group/show_file.dart';
+import 'package:shaur_chat_app/screens/uploadFiles/upload_files.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class GroupChat extends StatefulWidget {
   final dataGet;
@@ -207,20 +211,46 @@ class _GroupChatState extends State<GroupChat> {
                                         // Text(widget.name),
                                         Row(
                                           children: [
-                                            Container(
-                                              width: 300,
-                                              child:
-                                                  data["ar0Z7hs8KsVuottCEpVm9WlPrCO2"] !=
-                                                          null
-                                                      ? Text(
-                                                          data["ar0Z7hs8KsVuottCEpVm9WlPrCO2"] ??
-                                                              "",
-                                                          maxLines: null,
-                                                          overflow: TextOverflow
-                                                              .visible,
-                                                        )
-                                                      : null,
-                                            ),
+                                            validator.url(data[
+                                                    'ar0Z7hs8KsVuottCEpVm9WlPrCO2'])
+                                                ? InkWell(
+                                                    onTap: () async {
+                                                      if (await canLaunchUrl(
+                                                       Uri.parse( data['ar0Z7hs8KsVuottCEpVm9WlPrCO2']))) {
+                                                        await launchUrl(Uri.parse(data['ar0Z7hs8KsVuottCEpVm9WlPrCO2']));
+                                                      } else {
+                                                        throw 'Could not launch ${data['ar0Z7hs8KsVuottCEpVm9WlPrCO2']}';
+                                                      }
+                                                      // Navigator.push(
+                                                      //     context,
+                                                      //     MaterialPageRoute(
+                                                      //         builder: (context) =>
+                                                      //             ShowFile()));
+                                                    },
+                                                    child: SizedBox(
+                                                      width: 100,
+                                                      child: Text(
+                                                        data['name'],
+                                                        overflow: TextOverflow
+                                                            .visible,
+                                                      ),
+                                                    ),
+                                                  )
+                                                : Container(
+                                                    width: 300,
+                                                    child:
+                                                        data["ar0Z7hs8KsVuottCEpVm9WlPrCO2"] !=
+                                                                null
+                                                            ? Text(
+                                                                data["ar0Z7hs8KsVuottCEpVm9WlPrCO2"] ??
+                                                                    "",
+                                                                maxLines: null,
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .visible,
+                                                              )
+                                                            : null,
+                                                  ),
                                             // (data[widget.uid] != null)
                                             // ?
                                             const Text(
@@ -244,11 +274,6 @@ class _GroupChatState extends State<GroupChat> {
                                                   )
                                                 : const Text(""),
                                             // : Container()
-                                            TextButton(
-                                                onPressed: () {
-                                                  // buildSpeedDial();
-                                                },
-                                                child: Text("data"))
                                           ],
                                         ),
                                       ],
@@ -286,47 +311,76 @@ class _GroupChatState extends State<GroupChat> {
                   ),
                   // Second child is button
                   SpeedDial(
-      animatedIcon: AnimatedIcons.view_list,
-      animatedIconTheme: IconThemeData(size: 22.0),
-      // this is ignored if animatedIcon is non null
-      // child: Icon(Icons.add),
-      // visible: _dialVisible,
-      curve: Curves.bounceIn,
-      overlayColor: Colors.black,
-      overlayOpacity: 0,
-      // overlayOpacity: 0.5,
-      onOpen: () => print('OPENING DIAL'),
-      onClose: () => print('DIAL CLOSED'),
-      tooltip: 'attach-file',
-      // heroTag: 'speed-dial-hero-tag',
-      backgroundColor: Color.fromRGBO(250, 250, 250, 1.0),
-      foregroundColor: Colors.black,
-      // elevation: 8.0,
-      shape: CircleBorder(),
-      children: [
-        SpeedDialChild(
-          child: Icon(Icons.accessibility),
-          backgroundColor: Colors.red,
-          label: 'First',
-          // labelStyle: TextTheme(fontSize: 18.0),
-          onTap: () => print('FIRST CHILD')
-        ),
-        SpeedDialChild(
-          child: const Icon(Icons.brush),
-          backgroundColor: Colors.blue,
-          label: 'Second',
-          // labelStyle: const TextTheme(fontSize: 18.0),
-          onTap: () => print('SECOND CHILD'),
-        ),
-        SpeedDialChild(
-          child: Icon(Icons.keyboard_voice),
-          backgroundColor: Colors.green,
-          label: 'Third',
-          // labelStyle: TextTheme(fontSize: 18.0),
-          onTap: () => print('THIRD CHILD'),
-        ),
-      ],
-    ),
+                    animatedIcon: AnimatedIcons.view_list,
+                    animatedIconTheme: const IconThemeData(size: 22.0),
+                    // this is ignored if animatedIcon is non null
+                    // child: Icon(Icons.add),
+                    // visible: _dialVisible,
+                    curve: Curves.bounceIn,
+                    overlayColor: Colors.black,
+                    overlayOpacity: 0,
+                    // overlayOpacity: 0.5,
+                    onOpen: () => print('OPENING DIAL'),
+                    onClose: () => print('DIAL CLOSED'),
+                    tooltip: 'attach-file',
+                    elevation: 0,
+                    // heroTag: 'speed-dial-hero-tag',
+                    backgroundColor: const Color.fromRGBO(250, 250, 250, 1.0),
+                    foregroundColor: Colors.black,
+                    // elevation: 8.0,
+                    shape: const CircleBorder(),
+                    children: [
+                      SpeedDialChild(
+                          child: const Icon(
+                            Icons.photo,
+                            color: Colors.white,
+                          ),
+                          backgroundColor:
+                              const Color.fromRGBO(172, 68, 207, 1.0),
+                          label: 'Videos and Images',
+                          // labelStyle: TextTheme(fontSize: 18.0),
+                          onTap: () => print('FIRST CHILD')),
+                      SpeedDialChild(
+                        child: const Icon(
+                          Icons.emoji_emotions_sharp,
+                          color: Colors.white,
+                        ),
+                        backgroundColor:
+                            const Color.fromRGBO(172, 68, 207, 1.0),
+                        label: 'stickers',
+                        // labelStyle: const TextTheme(fontSize: 18.0),
+                        onTap: () => print('SECOND CHILD'),
+                      ),
+                      SpeedDialChild(
+                        child: const Icon(
+                          Icons.camera_alt,
+                          color: Colors.white,
+                        ),
+                        backgroundColor:
+                            const Color.fromRGBO(211, 57, 109, 1.0),
+                        label: 'Camera',
+                        // labelStyle: const TextTheme(fontSize: 18.0),
+                        onTap: () => print('SECOND CHILD'),
+                      ),
+                      SpeedDialChild(
+                        child: const Icon(
+                          Icons.file_copy,
+                          color: Colors.white,
+                        ),
+                        backgroundColor: const Color.fromRGBO(81, 87, 174, 1.0),
+                        label: 'documents',
+                        // labelStyle: const TextTheme(fontSize: 18.0),
+                        onTap: () => uploadFiles(widget.DOCId),
+                      ),
+                      // SpeedDialChild(
+                      //   child: const Icon(Icons.account_circle, color: Colors.white,),
+                      //   backgroundColor: const Color.fromRGBO(14, 171, 244, 10.0),
+                      //   label: 'contact',
+                      //   // labelStyle: TextTheme(fontSize: 18.0),
+                      //   onTap: () => print('THIRD CHILD'),
+                      // ),
+                    ],
+                  ),
                   IconButton(
                     icon: const Icon(Icons.send),
                     iconSize: 20.0,
@@ -401,7 +455,6 @@ class _GroupChatState extends State<GroupChat> {
                       }
                     },
                   ),
-
                 ])),
           ],
         ),
