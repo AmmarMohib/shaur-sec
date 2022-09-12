@@ -25,6 +25,11 @@ dependencies:
   firebase_storage: ^10.3.7
   file_picker: ^5.0.1
   regexed_validator: ^2.0.0+1
+  mime: ^1.0.2
+  flutter_pdfview: ^1.2.3
+  path_provider: ^2.0.11
+  flutter_cached_pdfview: ^0.4.1
+  advance_pdf_viewer: ^2.0.1
 
 dev_dependencies:
   flutter_test:
@@ -37,3 +42,4 @@ flutter:
   assets:
     - assets/logo/
     - assets/images/
+    - assets/sample.pdf

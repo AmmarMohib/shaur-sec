@@ -23,7 +23,73 @@ import 'package:intl/intl.dart';
 //   }
 
 // }
-uploadFiles(docId) async {
+uploadFiles(docId, type) async {
+  FilePickerResult? res;
+  var file_type;
+  print(type);
+  switch (type) {
+    case "Camera":
+      {
+        // statements
+        print("cam");
+        // FilePickerResult? result = await FilePicker.platform
+        //     .pickFiles(allowedExtensions: ['pdf', 'doc'], type: FileType.custom);
+
+        // ;
+      }
+      break;
+
+    case "Documents":
+      {
+        //statements;
+        print("doc");
+        FilePickerResult? result = await FilePicker.platform.pickFiles(
+            allowedExtensions: [
+              'pdf',
+              'doc',
+              'docx',
+              'html',
+              'htm',
+              'odt',
+              'xls',
+              'xlsx',
+              'ppt',
+              'pptx',
+              'txt'
+            ],
+            type: FileType.custom,
+            allowMultiple: true);
+        res = result;
+        file_type = "document";
+      }
+      break;
+    case "Videos":
+      {
+        print("videos");
+        FilePickerResult? result = await FilePicker.platform
+            .pickFiles(type: FileType.video, allowMultiple: true);
+        res = result;
+        file_type = "video";
+      }
+      break;
+    case "Images":
+      {
+        print("Images");
+        FilePickerResult? result = await FilePicker.platform
+            .pickFiles(type: FileType.image, allowMultiple: true);
+        res = result;
+        file_type = "image";
+      }
+      break;
+
+    default:
+      {
+        //statements;
+        print("none");
+      }
+      break;
+  }
+
   // FilePickerResult? result = await FilePicker.platform.pickFiles(
   //   type: FileType.custom,
   //   allowedExtensions: ['jpg', 'pdf', 'doc', 'jpeg'],
@@ -36,88 +102,240 @@ uploadFiles(docId) async {
   // if (outputFile == null) {
   //   // User canceled the picker
   // }
-  FilePickerResult? result = await FilePicker.platform
-      .pickFiles(allowedExtensions: ['pdf', 'doc'], type: FileType.custom);
+  // FilePickerResult? result = await FilePicker.platform
+  //     .pickFiles(allowedExtensions: ['pdf', 'doc'], type: FileType.custom);
 
-  if (result != null) {
-    PlatformFile file = result.files.first;
+//   if (result != null) {
+//      PlatformFile file = result.files.first;
 
-    print(file.name);
-    print(file.bytes);
-    print(file.size);
-    print(file.extension);
-    print(file.path);
+// //     print(file.name);
+// //     print(file.bytes);
+// //     print(file.size);
+// //     print(file.extension);
+// //     print(file.path);
+// //     Random _ranStg = Random();
+// //     final String imgPath = 'docs/${_ranStg.nextInt(10000)}';
+// //     final FirebaseStorage storage = FirebaseStorage.instance;
+
+// //     TaskSnapshot tasking = await storage.ref(imgPath).putFile(File(file.path!));
+// //     String url = file.path.toString();
+// //     print('url1 => $url');
+// //             if (FirebaseAuth.instance.currentUser!.uid ==
+// //                           "ar0Z7hs8KsVuottCEpVm9WlPrCO2") {
+// //                         print("this is an admin");
+// //                         FirebaseFirestore.instance.settings = const Settings(
+// //                           persistenceEnabled: true,
+// //                           cacheSizeBytes: Settings.CACHE_SIZE_UNLIMITED,
+// //                         );
+// //                         var ref = FirebaseAuth.instance.currentUser!.uid;
+// //                           FirebaseFirestore.instance
+// //                             .collection("Admin")
+// //                             .doc("Groups")
+// //                             .collection("data")
+// //                             .doc(docId)
+// //                             .collection("messages")
+// //                             .add({
+// //                           "ar0Z7hs8KsVuottCEpVm9WlPrCO2": file.path,
+// //                           // "sentOn": currentTime,
+// //                           // "sentdate": formatter,
+// //                           "senttime": DateFormat.jm().format(DateTime.now()),
+// //                           "name" : file.name
+// //                           // "id" : messageId,
+// //                         }).then((value) => {
+// //                                   // messageId = value.id,
+// //                                   print(value.id)
+// //                                 });
+// //                         // _chatCon.clear();
+// // //                       print(docId);
+// //                       } else {
+// //                         print("no admin");
+// //                         FirebaseFirestore.instance.settings = const Settings(
+// //                           persistenceEnabled: true,
+// //                           cacheSizeBytes: Settings.CACHE_SIZE_UNLIMITED,
+// //                         );
+// //                         var ref = FirebaseAuth.instance.currentUser!.uid;
+// //                         FirebaseFirestore.instance
+// //                             .collection("Admin")
+// //                             .doc("Groups")
+// //                             .collection("data")
+// //                             .doc(docId)
+// //                             .collection("messages")
+// //                             .add({
+// //                           "ar0Z7hs8KsVuottCEpVm9WlPrCO2".toString().compareTo(
+// //                                       FirebaseAuth.instance.currentUser!.uid) >
+// //                                   0
+// //                               ? "ar0Z7hs8KsVuottCEpVm9WlPrCO2" +
+// //                                   FirebaseAuth.instance.currentUser!.uid
+// //                               : FirebaseAuth.instance.currentUser!.uid +
+// //                                   "ar0Z7hs8KsVuottCEpVm9WlPrCO2": url,
+// //                           // "sentOn": currentTime,
+// //                           // "sentdate": formatter,
+// //                           "senttime": DateFormat.jm().format(DateTime.now()),
+// //                           "name" : file.name
+// //                           // "id" : messageId,
+// //                         }).then((value) => {
+// //                                   // messageId = value.id,
+// //                                   print(value.id)
+// //                                 });
+// //                         // _chatCon.clear();
+// // //                       print(docId);
+// //                       }
+// //     // setState(() {
+// //     // _url = url;
+// //     // });;
+// //   } else {
+//     // User canceled the picker
+//   }
+
+// //     Random _ranStg = Random();
+// //     final String imgPath = 'docs/${_ranStg.nextInt(10000)}';
+// //     final FirebaseStorage storage = FirebaseStorage.instance;
+
+// //     TaskSnapshot tasking = await storage.ref(imgPath).putFile(File(file.path!));
+// //     String url = file.path.toString();
+// //     print('url1 => $url');
+// //             if (FirebaseAuth.instance.currentUser!.uid ==
+// //                           "ar0Z7hs8KsVuottCEpVm9WlPrCO2") {
+// //                         print("this is an admin");
+// //                         FirebaseFirestore.instance.settings = const Settings(
+// //                           persistenceEnabled: true,
+// //                           cacheSizeBytes: Settings.CACHE_SIZE_UNLIMITED,
+// //                         );
+// //                         var ref = FirebaseAuth.instance.currentUser!.uid;
+// //                           FirebaseFirestore.instance
+// //                             .collection("Admin")
+// //                             .doc("Groups")
+// //                             .collection("data")
+// //                             .doc(docId)
+// //                             .collection("messages")
+// //                             .add({
+// //                           "ar0Z7hs8KsVuottCEpVm9WlPrCO2": file.path,
+// //                           // "sentOn": currentTime,
+// //                           // "sentdate": formatter,
+// //                           "senttime": DateFormat.jm().format(DateTime.now()),
+// //                           "name" : file.name
+// //                           // "id" : messageId,
+// //                         }).then((value) => {
+// //                                   // messageId = value.id,
+// //                                   print(value.id)
+// //                                 });
+// //                         // _chatCon.clear();
+// // //                       print(docId);
+// //                       } else {
+// //                         print("no admin");
+// //                         FirebaseFirestore.instance.settings = const Settings(
+// //                           persistenceEnabled: true,
+// //                           cacheSizeBytes: Settings.CACHE_SIZE_UNLIMITED,
+// //                         );
+// //                         var ref = FirebaseAuth.instance.currentUser!.uid;
+// //                         FirebaseFirestore.instance
+// //                             .collection("Admin")
+// //                             .doc("Groups")
+// //                             .collection("data")
+// //                             .doc(docId)
+// //                             .collection("messages")
+// //                             .add({
+// //                           "ar0Z7hs8KsVuottCEpVm9WlPrCO2".toString().compareTo(
+// //                                       FirebaseAuth.instance.currentUser!.uid) >
+// //                                   0
+// //                               ? "ar0Z7hs8KsVuottCEpVm9WlPrCO2" +
+// //                                   FirebaseAuth.instance.currentUser!.uid
+// //                               : FirebaseAuth.instance.currentUser!.uid +
+// //                                   "ar0Z7hs8KsVuottCEpVm9WlPrCO2": url,
+// //                           // "sentOn": currentTime,
+// //                           // "sentdate": formatter,
+// //                           "senttime": DateFormat.jm().format(DateTime.now()),
+// //                           "name" : file.name
+// //                           // "id" : messageId,
+// //                         }).then((value) => {
+// //                                   // messageId = value.id,
+// //                                   print(value.id)
+// //                                 });
+// //                         // _chatCon.clear();
+// // //                       print(docId);
+// //                       }
+// //     // setState(() {
+// //     // _url = url;
+// //     // });;
+// //   } else {
+//     // User canceled the picker
+//   }
+
+  if (res != null) {
+    print("resultss " + res.paths.toString());
+    print("type" + file_type);
     Random _ranStg = Random();
     final String imgPath = 'docs/${_ranStg.nextInt(10000)}';
     final FirebaseStorage storage = FirebaseStorage.instance;
-
-    TaskSnapshot tasking = await storage.ref(imgPath).putFile(File(file.path!));
-    String url = await storage.ref(imgPath).getDownloadURL();
+    PlatformFile file = res.files.first;
+    TaskSnapshot tasking = await storage.ref(imgPath).putFile(File(file.path.toString()));
+    var urls = await  FirebaseStorage.instance.ref(imgPath).getDownloadURL();
+    var url = urls.toString();
     print('url1 => $url');
-            if (FirebaseAuth.instance.currentUser!.uid ==
-                          "ar0Z7hs8KsVuottCEpVm9WlPrCO2") {
-                        print("this is an admin");
-                        FirebaseFirestore.instance.settings = const Settings(
-                          persistenceEnabled: true,
-                          cacheSizeBytes: Settings.CACHE_SIZE_UNLIMITED,
-                        );
-                        var ref = FirebaseAuth.instance.currentUser!.uid;
-                        FirebaseFirestore.instance
-                            .collection("Admin")
-                            .doc("Groups")
-                            .collection("data")
-                            .doc(docId)
-                            .collection("messages")
-                            .add({
-                          "ar0Z7hs8KsVuottCEpVm9WlPrCO2": url,
-                          // "sentOn": currentTime,
-                          // "sentdate": formatter,
-                          "senttime": DateFormat.jm().format(DateTime.now()),
-                          "name" : file.name
-                          // "id" : messageId,
-                        }).then((value) => {
-                                  // messageId = value.id,
-                                  print(value.id)
-                                });
-                        // _chatCon.clear();
+    if (FirebaseAuth.instance.currentUser!.uid ==
+        "ar0Z7hs8KsVuottCEpVm9WlPrCO2") {
+      print("this is an admin");
+      FirebaseFirestore.instance.settings = const Settings(
+        persistenceEnabled: true,
+        cacheSizeBytes: Settings.CACHE_SIZE_UNLIMITED,
+      );
+      var ref = FirebaseAuth.instance.currentUser!.uid;
+      FirebaseFirestore.instance
+          .collection("Admin")
+          .doc("Groups")
+          .collection("data")
+          .doc(docId)
+          .collection("messages")
+          .add({
+        "ar0Z7hs8KsVuottCEpVm9WlPrCO2": url,
+        "type": file_type,
+        // "sentOn": currentTime,
+        // "sentdate": formatter,
+        "senttime": DateFormat.jm().format(DateTime.now()),
+        "name": file.name
+        // "id" : messageId,
+      }).then((value) => {
+                // messageId = value.id,
+                print(value.id)
+              });
+      // _chatCon.clear();
 //                       print(docId);
-                      } else {
-                        print("no admin");
-                        FirebaseFirestore.instance.settings = const Settings(
-                          persistenceEnabled: true,
-                          cacheSizeBytes: Settings.CACHE_SIZE_UNLIMITED,
-                        );
-                        var ref = FirebaseAuth.instance.currentUser!.uid;
-                        FirebaseFirestore.instance
-                            .collection("Admin")
-                            .doc("Groups")
-                            .collection("data")
-                            .doc(docId)
-                            .collection("messages")
-                            .add({
-                          "ar0Z7hs8KsVuottCEpVm9WlPrCO2".toString().compareTo(
-                                      FirebaseAuth.instance.currentUser!.uid) >
-                                  0
-                              ? "ar0Z7hs8KsVuottCEpVm9WlPrCO2" +
-                                  FirebaseAuth.instance.currentUser!.uid
-                              : FirebaseAuth.instance.currentUser!.uid +
-                                  "ar0Z7hs8KsVuottCEpVm9WlPrCO2": url,
-                          // "sentOn": currentTime,
-                          // "sentdate": formatter,
-                          "senttime": DateFormat.jm().format(DateTime.now()),
-                          "name" : file.name
-                          // "id" : messageId,
-                        }).then((value) => {
-                                  // messageId = value.id,
-                                  print(value.id)
-                                });
-                        // _chatCon.clear();
+    } else {
+      print("no admin");
+      FirebaseFirestore.instance.settings = const Settings(
+        persistenceEnabled: true,
+        cacheSizeBytes: Settings.CACHE_SIZE_UNLIMITED,
+      );
+      var ref = FirebaseAuth.instance.currentUser!.uid;
+      FirebaseFirestore.instance
+          .collection("Admin")
+          .doc("Groups")
+          .collection("data")
+          .doc(docId)
+          .collection("messages")
+          .add({
+        "ar0Z7hs8KsVuottCEpVm9WlPrCO2"
+                    .toString()
+                    .compareTo(FirebaseAuth.instance.currentUser!.uid) >
+                0
+            ? "ar0Z7hs8KsVuottCEpVm9WlPrCO2" +
+                FirebaseAuth.instance.currentUser!.uid
+            : FirebaseAuth.instance.currentUser!.uid +
+                "ar0Z7hs8KsVuottCEpVm9WlPrCO2": url,
+        // "sentOn": currentTime,
+        // "sentdate": formatter,
+        "type": file_type,
+        "senttime": DateFormat.jm().format(DateTime.now()),
+        "name": file.name
+      }).then((value) => {
+                // messageId = value.id,
+                print(value.id)
+              });
+      // _chatCon.clear();
 //                       print(docId);
-                      }
+    }
     // setState(() {
     // _url = url;
     // });;
-  } else {
-    // User canceled the picker
   }
 }

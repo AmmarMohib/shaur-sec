@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:intl/intl.dart';
@@ -26,9 +27,11 @@ class GroupChat extends StatefulWidget {
 }
 
 class _GroupChatState extends State<GroupChat> {
+  final ref = FirebaseStorage.instance.ref().child('testimage');
   TextEditingController _chatCon = TextEditingController();
   @override
   Widget build(BuildContext context) {
+  
     print(widget.DOCId);
     return MaterialApp(
         home: Scaffold(
@@ -211,13 +214,14 @@ class _GroupChatState extends State<GroupChat> {
                                         // Text(widget.name),
                                         Row(
                                           children: [
-                                            validator.url(data[
+                                           data['ar0Z7hs8KsVuottCEpVm9WlPrCO2'] != null ? validator.url(
+                                              data[
                                                     'ar0Z7hs8KsVuottCEpVm9WlPrCO2'])
                                                 ? InkWell(
                                                     onTap: () async {
                                                       if (await canLaunchUrl(
                                                        Uri.parse( data['ar0Z7hs8KsVuottCEpVm9WlPrCO2']))) {
-                                                        await launchUrl(Uri.parse(data['ar0Z7hs8KsVuottCEpVm9WlPrCO2']));
+                                                        await launchUrl(Uri.parse(data['ar0Z7hs8KsVuottCEpVm9WlPrCO2']), mode: LaunchMode.externalApplication);
                                                       } else {
                                                         throw 'Could not launch ${data['ar0Z7hs8KsVuottCEpVm9WlPrCO2']}';
                                                       }
@@ -250,7 +254,7 @@ class _GroupChatState extends State<GroupChat> {
                                                                         .visible,
                                                               )
                                                             : null,
-                                                  ),
+                                                  ): Text(""),
                                             // (data[widget.uid] != null)
                                             // ?
                                             const Text(
@@ -332,25 +336,24 @@ class _GroupChatState extends State<GroupChat> {
                     children: [
                       SpeedDialChild(
                           child: const Icon(
-                            Icons.photo,
+                            Icons.videocam,
                             color: Colors.white,
                           ),
                           backgroundColor:
                               const Color.fromRGBO(172, 68, 207, 1.0),
-                          label: 'Videos and Images',
+                          label: 'Videos',
                           // labelStyle: TextTheme(fontSize: 18.0),
-                          onTap: () => print('FIRST CHILD')),
-                      SpeedDialChild(
-                        child: const Icon(
-                          Icons.emoji_emotions_sharp,
-                          color: Colors.white,
-                        ),
-                        backgroundColor:
-                            const Color.fromRGBO(172, 68, 207, 1.0),
-                        label: 'stickers',
-                        // labelStyle: const TextTheme(fontSize: 18.0),
-                        onTap: () => print('SECOND CHILD'),
-                      ),
+                          onTap: () => uploadFiles(widget.DOCId, "Videos")),
+                            SpeedDialChild(
+                          child: const Icon(
+                            Icons.photo,
+                            color: Colors.white,
+                          ),
+                          backgroundColor:
+                              const Color.fromRGBO(2, 3, 111, 1.0),
+                          label: 'Images',
+                          // labelStyle: TextTheme(fontSize: 18.0),
+                          onTap: () => uploadFiles(widget.DOCId, "Images"),),
                       SpeedDialChild(
                         child: const Icon(
                           Icons.camera_alt,
@@ -360,7 +363,7 @@ class _GroupChatState extends State<GroupChat> {
                             const Color.fromRGBO(211, 57, 109, 1.0),
                         label: 'Camera',
                         // labelStyle: const TextTheme(fontSize: 18.0),
-                        onTap: () => print('SECOND CHILD'),
+                        onTap: () => uploadFiles(widget.DOCId, "Camera"),
                       ),
                       SpeedDialChild(
                         child: const Icon(
@@ -368,9 +371,9 @@ class _GroupChatState extends State<GroupChat> {
                           color: Colors.white,
                         ),
                         backgroundColor: const Color.fromRGBO(81, 87, 174, 1.0),
-                        label: 'documents',
+                        label: 'Documents',
                         // labelStyle: const TextTheme(fontSize: 18.0),
-                        onTap: () => uploadFiles(widget.DOCId),
+                        onTap: () => uploadFiles(widget.DOCId, "Documents"),
                       ),
                       // SpeedDialChild(
                       //   child: const Icon(Icons.account_circle, color: Colors.white,),
