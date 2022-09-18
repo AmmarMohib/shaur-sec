@@ -3,9 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>325591603918-g0rijelvclmoven2q6i32v4kmf8ofkeg.apps.googleusercontent.com</string>
+	<string>325591603918-ttgb3up3iqbvmtrgup0jdheo8hd2hatb.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.325591603918-g0rijelvclmoven2q6i32v4kmf8ofkeg</string>
+	<string>com.googleusercontent.apps.325591603918-ttgb3up3iqbvmtrgup0jdheo8hd2hatb</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>325591603918-ctcqh7basj9ht9adeqae89f1ghs2gvsl.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
 	<string>AIzaSyDyy05xyGzF-_A9GVVXa7V0u1TwaSfz7W0</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.shaurChatApp</string>
+	<string>com.example.shaurSec</string>
 	<key>PROJECT_ID</key>
 	<string>shaur-chat</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:325591603918:ios:d96b809a88d276f1ff0e9f</string>
+	<string>1:325591603918:ios:813d18e0d8f53818ff0e9f</string>
 </dict>
 </plist>

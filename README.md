@@ -1,4 +1,4 @@
-# shaur_chat_app
+# shaur_sec
 
 A new Flutter project.
 

@@ -398,9 +398,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
-import 'package:shaur_chat_app/screens/contacts/checklist.dart';
+import 'package:shaur_sec/screens/contacts/checklist.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:shaur_chat_app/screens/group/create_group.dart';
+import 'package:shaur_sec/screens/group/create_group.dart';
 
 class FirestoreApi {
   static Future uploadContacts(List<Contact> contacts) async {

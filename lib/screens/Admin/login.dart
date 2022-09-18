@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shaur_chat_app/screens/Admin/admin.dart';
+import 'package:shaur_sec/screens/Admin/admin.dart';
 
 class AdminLogin extends StatefulWidget {
   const AdminLogin({super.key});

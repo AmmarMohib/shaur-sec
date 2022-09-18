@@ -1,6 +1,6 @@
 {
-    "name": "shaur_chat_app",
-    "short_name": "shaur_chat_app",
+    "name": "shaur_sec",
+    "short_name": "shaur_sec",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

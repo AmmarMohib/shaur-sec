@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:shaur_chat_app/screens/group/group_chat.dart';
-import 'package:shaur_chat_app/screens/home/homepage.dart';
+import 'package:shaur_sec/screens/group/group_chat.dart';
+import 'package:shaur_sec/screens/home/homepage.dart';
 
 class Groups extends StatefulWidget {
   const Groups({super.key});

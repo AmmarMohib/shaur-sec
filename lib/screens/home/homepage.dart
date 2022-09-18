@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:shaur_chat_app/screens/Admin/login.dart';
-import 'package:shaur_chat_app/screens/group/group_page.dart';
-import 'package:shaur_chat_app/screens/settings/settings_page.dart';
+import 'package:shaur_sec/screens/Admin/login.dart';
+import 'package:shaur_sec/screens/group/group_page.dart';
+import 'package:shaur_sec/screens/settings/settings_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

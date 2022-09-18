@@ -1,4 +1,4 @@
-package com.example.shaur_chat_app
+package com.example.shaur_sec
 
 import io.flutter.embedding.android.FlutterActivity
 

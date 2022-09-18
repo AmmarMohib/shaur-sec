@@ -55,7 +55,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyC8X-czak1dy1qY4LzSz2UbFD55WBeNuuo',
-    appId: '1:325591603918:android:e30e059dd76ef38eff0e9f',
+    appId: '1:325591603918:android:c564cb68a11782b7ff0e9f',
     messagingSenderId: '325591603918',
     projectId: 'shaur-chat',
     storageBucket: 'shaur-chat.appspot.com',
@@ -63,21 +63,23 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyDyy05xyGzF-_A9GVVXa7V0u1TwaSfz7W0',
-    appId: '1:325591603918:ios:d96b809a88d276f1ff0e9f',
+    appId: '1:325591603918:ios:813d18e0d8f53818ff0e9f',
     messagingSenderId: '325591603918',
     projectId: 'shaur-chat',
     storageBucket: 'shaur-chat.appspot.com',
-    iosClientId: '325591603918-g0rijelvclmoven2q6i32v4kmf8ofkeg.apps.googleusercontent.com',
-    iosBundleId: 'com.example.shaurChatApp',
+    androidClientId: '325591603918-ctcqh7basj9ht9adeqae89f1ghs2gvsl.apps.googleusercontent.com',
+    iosClientId: '325591603918-ttgb3up3iqbvmtrgup0jdheo8hd2hatb.apps.googleusercontent.com',
+    iosBundleId: 'com.example.shaurSec',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyDyy05xyGzF-_A9GVVXa7V0u1TwaSfz7W0',
-    appId: '1:325591603918:ios:d96b809a88d276f1ff0e9f',
+    appId: '1:325591603918:ios:813d18e0d8f53818ff0e9f',
     messagingSenderId: '325591603918',
     projectId: 'shaur-chat',
     storageBucket: 'shaur-chat.appspot.com',
-    iosClientId: '325591603918-g0rijelvclmoven2q6i32v4kmf8ofkeg.apps.googleusercontent.com',
-    iosBundleId: 'com.example.shaurChatApp',
+    androidClientId: '325591603918-ctcqh7basj9ht9adeqae89f1ghs2gvsl.apps.googleusercontent.com',
+    iosClientId: '325591603918-ttgb3up3iqbvmtrgup0jdheo8hd2hatb.apps.googleusercontent.com',
+    iosBundleId: 'com.example.shaurSec',
   );
 }

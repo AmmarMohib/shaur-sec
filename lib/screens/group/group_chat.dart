@@ -1,16 +1,22 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:intl/intl.dart';
 import 'package:regexed_validator/regexed_validator.dart';
-import 'package:shaur_chat_app/components/customs/speed_dial.dart';
-import 'package:shaur_chat_app/screens/group/show_file.dart';
-import 'package:shaur_chat_app/screens/uploadFiles/upload_files.dart';
+import 'package:shaur_sec/components/customs/pdf_view.dart';
+import 'package:shaur_sec/components/customs/speed_dial.dart';
+import 'package:shaur_sec/screens/group/show_file.dart';
+import 'package:shaur_sec/screens/uploadFiles/upload_files.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:flutter_pdfview/flutter_pdfview.dart';
 
 class GroupChat extends StatefulWidget {
   final dataGet;
@@ -27,11 +33,17 @@ class GroupChat extends StatefulWidget {
 }
 
 class _GroupChatState extends State<GroupChat> {
+  @override
+  String pathPDF = "";
+  String landscapePathPdf = "";
+  String remotePDFpath = "";
+  String corruptedPathPDF = "";
   final ref = FirebaseStorage.instance.ref().child('testimage');
-  TextEditingController _chatCon = TextEditingController();
+  final TextEditingController _chatCon = TextEditingController();
+  
+
   @override
   Widget build(BuildContext context) {
-  
     print(widget.DOCId);
     return MaterialApp(
         home: Scaffold(
@@ -214,47 +226,118 @@ class _GroupChatState extends State<GroupChat> {
                                         // Text(widget.name),
                                         Row(
                                           children: [
-                                           data['ar0Z7hs8KsVuottCEpVm9WlPrCO2'] != null ? validator.url(
-                                              data[
-                                                    'ar0Z7hs8KsVuottCEpVm9WlPrCO2'])
-                                                ? InkWell(
-                                                    onTap: () async {
-                                                      if (await canLaunchUrl(
-                                                       Uri.parse( data['ar0Z7hs8KsVuottCEpVm9WlPrCO2']))) {
-                                                        await launchUrl(Uri.parse(data['ar0Z7hs8KsVuottCEpVm9WlPrCO2']), mode: LaunchMode.externalApplication);
-                                                      } else {
-                                                        throw 'Could not launch ${data['ar0Z7hs8KsVuottCEpVm9WlPrCO2']}';
-                                                      }
-                                                      // Navigator.push(
-                                                      //     context,
-                                                      //     MaterialPageRoute(
-                                                      //         builder: (context) =>
-                                                      //             ShowFile()));
-                                                    },
-                                                    child: SizedBox(
-                                                      width: 100,
-                                                      child: Text(
-                                                        data['name'],
-                                                        overflow: TextOverflow
-                                                            .visible,
-                                                      ),
-                                                    ),
-                                                  )
-                                                : Container(
-                                                    width: 300,
-                                                    child:
-                                                        data["ar0Z7hs8KsVuottCEpVm9WlPrCO2"] !=
-                                                                null
-                                                            ? Text(
-                                                                data["ar0Z7hs8KsVuottCEpVm9WlPrCO2"] ??
-                                                                    "",
-                                                                maxLines: null,
-                                                                overflow:
-                                                                    TextOverflow
-                                                                        .visible,
-                                                              )
-                                                            : null,
-                                                  ): Text(""),
+                                            data['ar0Z7hs8KsVuottCEpVm9WlPrCO2'] !=
+                                                    null
+                                                ? validator.url(data[
+                                                        'ar0Z7hs8KsVuottCEpVm9WlPrCO2'])
+                                                    ? InkWell(
+                                                        onTap: () async {
+                                                          // if (await canLaunchUrl(
+                                                          //  Uri.parse( data['ar0Z7hs8KsVuottCEpVm9WlPrCO2']))) {
+                                                          //   await launchUrl(Uri.parse(data['ar0Z7hs8KsVuottCEpVm9WlPrCO2']), mode: LaunchMode.externalApplication);
+                                                          // } else {
+                                                          //   throw 'Could not launch ${data['ar0Z7hs8KsVuottCEpVm9WlPrCO2']}';
+                                                          // }
+                                                          if (data['type'] ==
+                                                              "document") {
+                                                                Future<File> createFileOfPdfUrl() async {
+    Completer<File> completer = Completer();
+    print("Start download file from internet!");
+    try {
+      // "https://berlin2017.droidcon.cod.newthinking.net/sites/global.droidcon.cod.newthinking.net/files/media/documents/Flutter%20-%2060FPS%20UI%20of%20the%20future%20%20-%20DroidconDE%2017.pdf";
+      String url = data['ar0Z7hs8KsVuottCEpVm9WlPrCO2'];
+      // const url = "https://firebasestorage.googleapis.com/v0/b/shaur-chat.appspot.com/o/docs%2F3425?alt=media&token=18c51f73-0741-409a-a0df-d7cafb4becde";
+      final filename = url.substring(url.lastIndexOf("/") + 1);
+      var request = await HttpClient().getUrl(Uri.parse(url));
+      var response = await request.close();
+      var bytes = await consolidateHttpClientResponseBytes(response);
+      var dir = await getApplicationDocumentsDirectory();
+      print("Download files");
+      print("${dir.path}/$filename");
+      File file = File("${dir.path}/$filename");
+
+      await file.writeAsBytes(bytes, flush: true);
+      completer.complete(file);
+    } catch (e) {
+      throw Exception('Error parsing asset file!');
+    }
+
+    return completer.future;
+  }
+
+  Future<File> fromAsset(String asset, String filename) async {
+    // To open from assets, you can copy them to the app storage folder, and the access them "locally"
+    Completer<File> completer = Completer();
+
+    try {
+      var dir = await getApplicationDocumentsDirectory();
+      File file = File("${dir.path}/$filename");
+      var data = await rootBundle.load(asset);
+      var bytes = data.buffer.asUint8List();
+      await file.writeAsBytes(bytes, flush: true);
+      completer.complete(file);
+    } catch (e) {
+      throw Exception('Error parsing asset file!');
+    }
+
+    return completer.future;
+  }
+                                                                if (remotePDFpath
+                                                                .isNotEmpty) {
+                                                              Navigator.push(
+                                                                context,
+                                                                MaterialPageRoute(
+                                                                  builder: (context) =>
+                                                                      PDFScreen(
+                                                                          path:
+                                                                              remotePDFpath, fileName: data["name"]),
+                                                                ),
+                                                              );
+                                                            }
+                                                            print(
+                                                                "type = ${data["type"]}");
+                                                             createFileOfPdfUrl()
+                                                                .then((f) {
+                                                              setState(() {
+                                                                remotePDFpath =
+                                                                    f.path;
+                                                              });
+                                                            });
+                                                          }
+
+                                                          // Navigator.push(
+                                                          //     context,
+                                                          //     MaterialPageRoute(
+                                                          //         builder: (context) =>
+                                                          //             ShowFile()));
+                                                        },
+                                                        child: SizedBox(
+                                                          width: 100,
+                                                          child: Text(
+                                                            data['name'],
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .visible,
+                                                          ),
+                                                        ),
+                                                      )
+                                                    : Container(
+                                                        width: 300,
+                                                        child:
+                                                            data["ar0Z7hs8KsVuottCEpVm9WlPrCO2"] !=
+                                                                    null
+                                                                ? Text(
+                                                                    data["ar0Z7hs8KsVuottCEpVm9WlPrCO2"] ??
+                                                                        "",
+                                                                    maxLines:
+                                                                        null,
+                                                                    overflow:
+                                                                        TextOverflow
+                                                                            .visible,
+                                                                  )
+                                                                : null,
+                                                      )
+                                                : Text(""),
                                             // (data[widget.uid] != null)
                                             // ?
                                             const Text(
@@ -344,16 +427,16 @@ class _GroupChatState extends State<GroupChat> {
                           label: 'Videos',
                           // labelStyle: TextTheme(fontSize: 18.0),
                           onTap: () => uploadFiles(widget.DOCId, "Videos")),
-                            SpeedDialChild(
-                          child: const Icon(
-                            Icons.photo,
-                            color: Colors.white,
-                          ),
-                          backgroundColor:
-                              const Color.fromRGBO(2, 3, 111, 1.0),
-                          label: 'Images',
-                          // labelStyle: TextTheme(fontSize: 18.0),
-                          onTap: () => uploadFiles(widget.DOCId, "Images"),),
+                      SpeedDialChild(
+                        child: const Icon(
+                          Icons.photo,
+                          color: Colors.white,
+                        ),
+                        backgroundColor: const Color.fromRGBO(2, 3, 111, 1.0),
+                        label: 'Images',
+                        // labelStyle: TextTheme(fontSize: 18.0),
+                        onTap: () => uploadFiles(widget.DOCId, "Images"),
+                      ),
                       SpeedDialChild(
                         child: const Icon(
                           Icons.camera_alt,

@@ -6,9 +6,9 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
-import 'package:shaur_chat_app/screens/Admin/admin.dart';
-import 'package:shaur_chat_app/screens/contacts/contacts.dart';
-import 'package:shaur_chat_app/screens/home/homepage.dart';
+import 'package:shaur_sec/screens/Admin/admin.dart';
+import 'package:shaur_sec/screens/contacts/contacts.dart';
+import 'package:shaur_sec/screens/home/homepage.dart';
 
 class CreateGroup extends StatefulWidget {
   final List? conList;

@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:shaur_chat_app/screens/home/homepage.dart';
-import 'package:shaur_chat_app/screens/login/signup_screen.dart';
+import 'package:shaur_sec/screens/home/homepage.dart';
+import 'package:shaur_sec/screens/login/signup_screen.dart';
 
 class CheckUser extends StatefulWidget {
   const CheckUser({Key? key}) : super(key: key);

@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "325591603918-ctcqh7basj9ht9adeqae89f1ghs2gvsl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.shaur_chat_app",
+            "certificate_hash": "b28bb41e10e71cd6254a0b697e2c914d7734839d"
+          }
+        },
+        {
           "client_id": "325591603918-vv52k23h2bsdqqpd9jb7ip7plbikloja.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,6 +37,49 @@
             {
               "client_id": "325591603918-vv52k23h2bsdqqpd9jb7ip7plbikloja.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "325591603918-g0rijelvclmoven2q6i32v4kmf8ofkeg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.shaurChatApp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:325591603918:android:c564cb68a11782b7ff0e9f",
+        "android_client_info": {
+          "package_name": "com.example.shaur_sec"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "325591603918-vv52k23h2bsdqqpd9jb7ip7plbikloja.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8X-czak1dy1qY4LzSz2UbFD55WBeNuuo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "325591603918-vv52k23h2bsdqqpd9jb7ip7plbikloja.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "325591603918-g0rijelvclmoven2q6i32v4kmf8ofkeg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.shaurChatApp"
+              }
             }
           ]
         }
