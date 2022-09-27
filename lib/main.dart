@@ -1,357 +1,199 @@
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:shaur_sec/screens/login/check_user.dart';
-import 'package:shaur_sec/screens/login/signup_screen.dart';
-import 'firebase_options.dart';
-
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(primaryColor: Color.fromRGBO(6, 49, 70, 1.0)),
-      home: const MyHomePage(title: 'Shaur Educational Complex'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return const CheckUser();
-  }
-}
-
-
-// import 'dart:io';
-
-// import 'package:flutter/foundation.dart' show kIsWeb; // for checking whether running on Web or not
+// import 'package:firebase_core/firebase_core.dart';
 // import 'package:flutter/material.dart';
-// import 'package:flutter_cache_manager/flutter_cache_manager.dart';
-// import 'package:pdf_render/pdf_render_widgets.dart';
+// import 'package:flutter/services.dart';
+// import 'package:shaur_sec/screens/login/check_user.dart';
+// import 'firebase_options.dart';
 
-// void main(List<String> args) => runApp(const MyApp());
+// void main() async {
+//   WidgetsFlutterBinding.ensureInitialized();
+//   await Firebase.initializeApp(
+//     options: DefaultFirebaseOptions.currentPlatform,
+//   );
 
-// class MyApp extends StatefulWidget {
-//   const MyApp({Key? key}) : super(key: key);
-
-//   @override
-//   _MyAppState createState() => _MyAppState();
+//   runApp(const MyApp());
 // }
 
-// class _MyAppState extends State<MyApp> {
-//   final controller = PdfViewerController();
-//   TapDownDetails? _doubleTapDetails;
+// class MyApp extends StatelessWidget {
+//   const MyApp({super.key});
 
-//   @override
-//   void dispose() {
-//     controller.dispose();
-//     super.dispose();
-//   }
-
+//   // This widget is the root of your application.
 //   @override
 //   Widget build(BuildContext context) {
+//     SystemChrome.setPreferredOrientations([
+//       DeviceOrientation.portraitUp,
+//       DeviceOrientation.portraitDown,
+//     ]);
 //     return MaterialApp(
-//       home: Scaffold(
-//         appBar: AppBar(
-//           title: ValueListenableBuilder<Matrix4>(
-//               // The controller is compatible with ValueListenable<Matrix4> and you can receive notifications on scrolling and zooming of the view.
-//               valueListenable: controller,
-//               builder: (context, _, child) =>
-//                   Text(controller.isReady ? 'Page #${controller.currentPageNumber}' : 'Page -')),
-//         ),
-//         backgroundColor: Colors.grey,
-//         body: GestureDetector(
-//           // Supporting double-tap gesture on the viewer.
-//           onDoubleTapDown: (details) => _doubleTapDetails = details,
-//           onDoubleTap: () => controller.ready?.setZoomRatio(
-//             zoomRatio: controller.zoomRatio * 1.5,
-//             center: _doubleTapDetails!.localPosition,
-//           ),
-//           child: !kIsWeb && Platform.isMacOS
-//               // Networking sample using flutter_cache_manager
-//               ? PdfViewer.openFutureFile(
-//                   // Accepting function that returns Future<String> of PDF file path
-//                   () async => (await DefaultCacheManager().getSingleFile(
-//                           'https://github.com/espresso3389/flutter_pdf_render/raw/master/example/assets/hello.pdf'))
-//                       .path,
-//                   viewerController: controller,
-//                   onError: (err) => print(err),
-//                   params: const PdfViewerParams(
-//                     padding: 10,
-//                     minScale: 1.0,
-//                     // scrollDirection: Axis.horizontal,
-//                   ),
-//                 )
-//               : Text("data")
-//                 ),
-//         floatingActionButton: Column(
-//           mainAxisAlignment: MainAxisAlignment.end,
-//           children: <Widget>[
-//             FloatingActionButton(
-//               child: const Icon(Icons.first_page),
-//               onPressed: () => controller.ready?.goToPage(pageNumber: 1),
-//             ),
-//             FloatingActionButton(
-//               child: const Icon(Icons.last_page),
-//               onPressed: () => controller.ready?.goToPage(pageNumber: controller.pageCount),
-//             ),
-//           ],
-//         ),
-//       ),
+//       title: 'Flutter Demo',
+//       theme: ThemeData(primaryColor: Color.fromRGBO(6, 49, 70, 1.0)),
+//       home: const MyHomePage(title: 'Shaur Educational Complex'),
 //     );
 //   }
 // }
 
+// class MyHomePage extends StatefulWidget {
+//   const MyHomePage({super.key, required this.title});
+//   final String title;
 
+//   @override
+//   State<MyHomePage> createState() => _MyHomePageState();
+// }
 
+// class _MyHomePageState extends State<MyHomePage> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return const CheckUser();
+//   }
+// }
+// mlm
+import 'package:file_picker/file_picker.dart';
+import 'package:open_file/open_file.dart';
+import 'package:flutter/material.dart';
 
+void main() {
+runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+void _pickFile() async {
+
+	// opens storage to pick files and the picked file or files
+	// are assigned into result and if no file is chosen result is null.
+	// you can also toggle "allowMultiple" true or false depending on your need
+	final result = await FilePicker.platform.pickFiles(allowMultiple: true);
+
+	// if no file is picked
+	if (result == null) return;
+
+	// we get the file from result object
+	final file = result.files.first;
+
+	_openFile(file);
+}  
+
+void _openFile(PlatformFile file) {
+	OpenFile.open(file.path);
+}
+
+@override
+Widget build(BuildContext context) {
+	return MaterialApp(
+	debugShowCheckedModeBanner: false,
+	home: Scaffold(
+		backgroundColor: Colors.green[100],
+		body: Center(
+		child: MaterialButton(
+			onPressed: () {
+			_pickFile();
+			},
+			child: Text(
+			'Pick and open file',
+			style: TextStyle(color: Colors.white),
+			),
+			color: Colors.green,
+		),
+		),
+	),
+	);
+}
+}
 // import 'dart:async';
 // import 'dart:io';
 
-// import 'package:flutter/foundation.dart';
 // import 'package:flutter/material.dart';
-// import 'package:flutter/services.dart';
+// // ignore: depend_on_referenced_packages
 // import 'package:path_provider/path_provider.dart';
-// import 'package:flutter_pdfview/flutter_pdfview.dart';
 
-// void main() => runApp(MyApp());
-
-// class MyApp extends StatefulWidget {
-//   @override
-//   _MyAppState createState() => _MyAppState();
+// void main() {
+//   runApp(
+//     MaterialApp(
+//       title: 'Reading and Writing Files',
+//       home: FlutterDemo(storage: CounterStorage()),
+//     ),
+//   );
 // }
 
-// class _MyAppState extends State<MyApp> {
-//   String pathPDF = "";
-//   String landscapePathPdf = "";
-//   String remotePDFpath = "";
-//   String corruptedPathPDF = "";
+// class CounterStorage {
+//   Future<String> get _localPath async {
+//     final directory = await getApplicationDocumentsDirectory();
+//     print(directory);
+//     return directory.path;
+//   }
+
+//   Future<File> get _localFile async {
+//     final path = await _localPath;
+//     return File('$path/counter.txt');
+//   }
+
+//   Future<int> readCounter() async {
+//     try {
+//       final file = await _localFile;
+//       print(file.path);
+
+//       // Read the file
+//       final contents = await file.readAsString();
+
+//       return int.parse(contents);
+//     } catch (e) {
+//       // If encountering an error, return 0
+//       return 0;
+//     }
+//   }
+
+//   Future<File> writeCounter(int counter) async {
+//     final file = await _localFile;
+
+//     // Write the file
+//     return file.writeAsString('$counter');
+//   }
+// }
+
+// class FlutterDemo extends StatefulWidget {
+//   const FlutterDemo({super.key, required this.storage});
+
+//   final CounterStorage storage;
 
 //   @override
-//   initState() async {
-//     super.initState();
-//     // fromAsset('assets/corrupted.pdf', 'corrupted.pdf').then((f) {
-//     //   setState(() {
-//     //     corruptedPathPDF = f.path;
-//     //   });
-//     // });
-//     // fromAsset('assets/demo-link.pdf', 'demo.pdf').then((f) {
-//     //   setState(() {
-//     //     pathPDF = f.path;
-//     //   });
-//     // });
-//     // fromAsset('assets/demo-landscape.pdf', 'landscape.pdf').then((f) {
-//     //   setState(() {
-//     //     landscapePathPdf = f.path;
-//     //   });
-//     // });
+//   State<FlutterDemo> createState() => _FlutterDemoState();
+// }
 
-//    await createFileOfPdfUrl().then((f) {
+// class _FlutterDemoState extends State<FlutterDemo> {
+//   int _counter = 0;
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     widget.storage.readCounter().then((value) {
 //       setState(() {
-//         remotePDFpath = f.path;
+//         _counter = value;
 //       });
 //     });
 //   }
 
-//   Future<File> createFileOfPdfUrl() async {
-//     Completer<File> completer = Completer();
-//     print("Start download file from internet!");
-//     try {
-//       // "https://berlin2017.droidcon.cod.newthinking.net/sites/global.droidcon.cod.newthinking.net/files/media/documents/Flutter%20-%2060FPS%20UI%20of%20the%20future%20%20-%20DroidconDE%2017.pdf";
-//       final url = "https://pdfkit.org/docs/guide.pdf";
-//       // const url = "https://firebasestorage.googleapis.com/v0/b/shaur-chat.appspot.com/o/docs%2F3425?alt=media&token=18c51f73-0741-409a-a0df-d7cafb4becde";
-//       final filename = url.substring(url.lastIndexOf("/") + 1);
-//       var request = await HttpClient().getUrl(Uri.parse(url));
-//       var response = await request.close();
-//       var bytes = await consolidateHttpClientResponseBytes(response);
-//       var dir = await getApplicationDocumentsDirectory();
-//       print("Download files");
-//       print("${dir.path}/$filename");
-//       File file = File("${dir.path}/$filename");
+//   Future<File> _incrementCounter() {
+//     setState(() {
+//       _counter++;
+//     });
 
-//       await file.writeAsBytes(bytes, flush: true);
-//       completer.complete(file);
-//     } catch (e) {
-//       throw Exception('Error parsing asset file!');
-//     }
-
-//     return completer.future;
+//     // Write the variable as a string to the file.
+//     return widget.storage.writeCounter(_counter);
 //   }
-
-//   Future<File> fromAsset(String asset, String filename) async {
-//     // To open from assets, you can copy them to the app storage folder, and the access them "locally"
-//     Completer<File> completer = Completer();
-
-//     try {
-//       var dir = await getApplicationDocumentsDirectory();
-//       File file = File("${dir.path}/$filename");
-//       var data = await rootBundle.load(asset);
-//       var bytes = data.buffer.asUint8List();
-//       await file.writeAsBytes(bytes, flush: true);
-//       completer.complete(file);
-//     } catch (e) {
-//       throw Exception('Error parsing asset file!');
-//     }
-
-//     return completer.future;
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       title: 'Flutter PDF View',
-//       debugShowCheckedModeBanner: false,
-//       home: Scaffold(
-//         appBar: AppBar(title: const Text('Plugin example app')),
-//         body: Center(child: Builder(
-//           builder: (BuildContext context) {
-//             return Column(
-//               children: <Widget>[
-//                 TextButton(
-//                   child: Text("Remote PDF"),
-//                   onPressed: () {
-//                     if (remotePDFpath.isNotEmpty) {
-//                       Navigator.push(
-//                         context,
-//                         MaterialPageRoute(
-//                           builder: (context) => PDFScreen(path: remotePDFpath),
-//                         ),
-//                       );
-//                     }
-//                   },
-//                 ),
-//               ],
-//             );
-//           },
-//         )),
-//       ),
-//     );
-//   }
-// }
-
-// class PDFScreen extends StatefulWidget {
-//   final String? path;
-
-//   PDFScreen({Key? key, this.path}) : super(key: key);
-
-//   _PDFScreenState createState() => _PDFScreenState();
-// }
-
-// class _PDFScreenState extends State<PDFScreen> with WidgetsBindingObserver {
-//   final Completer<PDFViewController> _controller =
-//       Completer<PDFViewController>();
-//   int? pages = 0;
-//   int? currentPage = 0;
-//   bool isReady = false;
-//   String errorMessage = '';
 
 //   @override
 //   Widget build(BuildContext context) {
 //     return Scaffold(
 //       appBar: AppBar(
-//         title: Text("Document"),
-//         actions: <Widget>[
-//           IconButton(
-//             icon: Icon(Icons.share),
-//             onPressed: () {},
-//           ),
-//         ],
+//         title: const Text('Reading and Writing Files'),
 //       ),
-//       body: Stack(
-//         children: <Widget>[
-//           PDFView(
-//             filePath: widget.path,
-//             enableSwipe: true,
-//             swipeHorizontal: true,
-//             autoSpacing: false,
-//             pageFling: true,
-//             pageSnap: true,
-//             defaultPage: currentPage!,
-//             fitPolicy: FitPolicy.BOTH,
-//             preventLinkNavigation:
-//                 false, // if set to true the link is handled in flutter
-//             onRender: (_pages) {
-//               setState(() {
-//                 pages = _pages;
-//                 isReady = true;
-//               });
-//             },
-//             onError: (error) {
-//               setState(() {
-//                 errorMessage = error.toString();
-//               });
-//               print(error.toString());
-//             },
-//             onPageError: (page, error) {
-//               setState(() {
-//                 errorMessage = '$page: ${error.toString()}';
-//               });
-//               print('$page: ${error.toString()}');
-//             },
-//             onViewCreated: (PDFViewController pdfViewController) {
-//               _controller.complete(pdfViewController);
-//             },
-//             onLinkHandler: (String? uri) {
-//               print('goto uri: $uri');
-//             },
-//             onPageChanged: (int? page, int? total) {
-//               print('page change: $page/$total');
-//               setState(() {
-//                 currentPage = page;
-//               });
-//             },
-//           ),
-//           errorMessage.isEmpty
-//               ? !isReady
-//                   ? Center(
-//                       child: CircularProgressIndicator(),
-//                     )
-//                   : Container()
-//               : Center(
-//                   child: Text(errorMessage),
-//                 )
-//         ],
+//       body: Center(
+//         child: Text(
+//           'Button tapped $_counter time${_counter == 1 ? '' : 's'}.',
+//         ),
 //       ),
-//       floatingActionButton: FutureBuilder<PDFViewController>(
-//         future: _controller.future,
-//         builder: (context, AsyncSnapshot<PDFViewController> snapshot) {
-//           if (snapshot.hasData) {
-//             return FloatingActionButton.extended(
-//               label: Text("Go to ${pages! ~/ 2}"),
-//               onPressed: () async {
-//                 await snapshot.data!.setPage(pages! ~/ 2);
-//               },
-//             );
-//           }
-
-//           return Container();
-//         },
+//       floatingActionButton: FloatingActionButton(
+//         onPressed: _incrementCounter,
+//         tooltip: 'Increment',
+//         child: const Icon(Icons.add),
 //       ),
 //     );
 //   }

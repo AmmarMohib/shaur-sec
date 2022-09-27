@@ -40,7 +40,6 @@ class _GroupChatState extends State<GroupChat> {
   String corruptedPathPDF = "";
   final ref = FirebaseStorage.instance.ref().child('testimage');
   final TextEditingController _chatCon = TextEditingController();
-  
 
   @override
   Widget build(BuildContext context) {
@@ -240,76 +239,137 @@ class _GroupChatState extends State<GroupChat> {
                                                           // }
                                                           if (data['type'] ==
                                                               "document") {
-                                                                Future<File> createFileOfPdfUrl() async {
-    Completer<File> completer = Completer();
-    print("Start download file from internet!");
-    try {
-      // "https://berlin2017.droidcon.cod.newthinking.net/sites/global.droidcon.cod.newthinking.net/files/media/documents/Flutter%20-%2060FPS%20UI%20of%20the%20future%20%20-%20DroidconDE%2017.pdf";
-      String url = data['ar0Z7hs8KsVuottCEpVm9WlPrCO2'];
-      // const url = "https://firebasestorage.googleapis.com/v0/b/shaur-chat.appspot.com/o/docs%2F3425?alt=media&token=18c51f73-0741-409a-a0df-d7cafb4becde";
-      final filename = url.substring(url.lastIndexOf("/") + 1);
-      var request = await HttpClient().getUrl(Uri.parse(url));
-      var response = await request.close();
-      var bytes = await consolidateHttpClientResponseBytes(response);
-      var dir = await getApplicationDocumentsDirectory();
-      print("Download files");
-      print("${dir.path}/$filename");
-      File file = File("${dir.path}/$filename");
+                                                            // Future<File>
+                                                            //     createFileOfPdfUrl() async {
+                                                            //   Completer<File>
+                                                            //       completer =
+                                                            //       Completer();
+                                                            //   print(
+                                                            //       "Start download file from internet!");
+                                                            //   try {
+                                                            //     // "https://berlin2017.droidcon.cod.newthinking.net/sites/global.droidcon.cod.newthinking.net/files/media/documents/Flutter%20-%2060FPS%20UI%20of%20the%20future%20%20-%20DroidconDE%2017.pdf";
+                                                            //     String url = data[
+                                                            //         'ar0Z7hs8KsVuottCEpVm9WlPrCO2'];
+                                                            //     // const url = "https://firebasestorage.googleapis.com/v0/b/shaur-chat.appspot.com/o/docs%2F3425?alt=media&token=18c51f73-0741-409a-a0df-d7cafb4becde";
+                                                            //     final filename =
+                                                            //         url.substring(
+                                                            //             url.lastIndexOf("/") +
+                                                            //                 1);
+                                                            //     var request =
+                                                            //         await HttpClient()
+                                                            //             .getUrl(
+                                                            //                 Uri.parse(url));
+                                                            //     var response =
+                                                            //         await request
+                                                            //             .close();
+                                                            //     var bytes =
+                                                            //         await consolidateHttpClientResponseBytes(
+                                                            //             response);
+                                                            //     var dir =
+                                                            //         await getApplicationDocumentsDirectory();
+                                                            //     print(
+                                                            //         "Download files");
+                                                            //     print(
+                                                            //         "${dir.path}/$filename");
+                                                            //     File file = File(
+                                                            //         "${dir.path}/$filename");
 
-      await file.writeAsBytes(bytes, flush: true);
-      completer.complete(file);
-    } catch (e) {
-      throw Exception('Error parsing asset file!');
-    }
+                                                            //     await file
+                                                            //         .writeAsBytes(
+                                                            //             bytes,
+                                                            //             flush:
+                                                            //                 true);
+                                                            //     completer
+                                                            //         .complete(
+                                                            //             file);
+                                                            //   } catch (e) {
+                                                            //     throw Exception(
+                                                            //         'Error parsing asset file!');
+                                                            //   }
 
-    return completer.future;
-  }
+                                                            //   return completer
+                                                            //       .future;
+                                                            // }
 
-  Future<File> fromAsset(String asset, String filename) async {
-    // To open from assets, you can copy them to the app storage folder, and the access them "locally"
-    Completer<File> completer = Completer();
+                                                            // Future<File> fromAsset(
+                                                            //     String asset,
+                                                            //     String
+                                                            //         filename) async {
+                                                            //   // To open from assets, you can copy them to the app storage folder, and the access them "locally"
+                                                            //   Completer<File>
+                                                            //       completer =
+                                                            //       Completer();
 
-    try {
-      var dir = await getApplicationDocumentsDirectory();
-      File file = File("${dir.path}/$filename");
-      var data = await rootBundle.load(asset);
-      var bytes = data.buffer.asUint8List();
-      await file.writeAsBytes(bytes, flush: true);
-      completer.complete(file);
-    } catch (e) {
-      throw Exception('Error parsing asset file!');
-    }
+                                                            //   try {
+                                                            //     var dir =
+                                                            //         await getApplicationDocumentsDirectory();
+                                                            //     File file = File(
+                                                            //         "${dir.path}/$filename");
+                                                            //     var data =
+                                                            //         await rootBundle
+                                                            //             .load(
+                                                            //                 asset);
+                                                            //     var bytes = data
+                                                            //         .buffer
+                                                            //         .asUint8List();
+                                                            //     await file
+                                                            //         .writeAsBytes(
+                                                            //             bytes,
+                                                            //             flush:
+                                                            //                 true);
+                                                            //     completer
+                                                            //         .complete(
+                                                            //             file);
+                                                            //   } catch (e) {
+                                                            //     throw Exception(
+                                                            //         'Error parsing asset file!');
+                                                            //   }
 
-    return completer.future;
-  }
-                                                                if (remotePDFpath
-                                                                .isNotEmpty) {
-                                                              Navigator.push(
-                                                                context,
-                                                                MaterialPageRoute(
-                                                                  builder: (context) =>
-                                                                      PDFScreen(
-                                                                          path:
-                                                                              remotePDFpath, fileName: data["name"]),
-                                                                ),
-                                                              );
-                                                            }
-                                                            print(
-                                                                "type = ${data["type"]}");
-                                                             createFileOfPdfUrl()
-                                                                .then((f) {
-                                                              setState(() {
-                                                                remotePDFpath =
-                                                                    f.path;
-                                                              });
-                                                            });
+                                                            //   return completer
+                                                            //       .future;
+                                                            // }
+
+                                                            //   if (remotePDFpath
+                                                            //       .isNotEmpty) {
+                                                            //     // Navigator.push(
+                                                            //     //   context,
+                                                            //     //   MaterialPageRoute(
+                                                            //     //     builder: (context) =>
+                                                            //     //         PDFScreen(
+                                                            //     //             path:
+                                                            //     //                 remotePDFpath, fileName: data["name"]),
+                                                            //     //   ),
+                                                            //     // );
+                                                            //     Navigator.push(
+                                                            //       context,
+                                                            //       MaterialPageRoute(
+                                                            //         builder: (context) =>
+                                                            //            MyApp()
+                                                            //       ),
+                                                            //     );
+                                                            //   }
+                                                            //   print(
+                                                            //       "type = ${data["type"]}");
+                                                            //   createFileOfPdfUrl()
+                                                            //       .then((f) {
+                                                            //     setState(() {
+                                                            //       remotePDFpath =
+                                                            //           f.path;
+                                                            //     });
+                                                            //   });
+                                                            // }
                                                           }
-
-                                                          // Navigator.push(
-                                                          //     context,
-                                                          //     MaterialPageRoute(
-                                                          //         builder: (context) =>
-                                                          //             ShowFile()));
+                                                          Navigator.push(
+                                                              context,
+                                                              MaterialPageRoute(
+                                                                  builder:
+                                                                      (context) =>
+                                                                          PdfViewer(
+                                                                            fileName:
+                                                                                data['name'],
+                                                                            URl:
+                                                                                data['ar0Z7hs8KsVuottCEpVm9WlPrCO2'],
+                                                                          )));
                                                         },
                                                         child: SizedBox(
                                                           width: 100,
