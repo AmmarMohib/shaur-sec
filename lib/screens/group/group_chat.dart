@@ -17,6 +17,7 @@ import 'package:shaur_sec/screens/uploadFiles/upload_files.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
+import 'package:shaur_sec/services/download_file.dart';
 
 class GroupChat extends StatefulWidget {
   final dataGet;
@@ -227,8 +228,11 @@ class _GroupChatState extends State<GroupChat> {
                                           children: [
                                             data['ar0Z7hs8KsVuottCEpVm9WlPrCO2'] !=
                                                     null
-                                                ? validator.url(data[
-                                                        'ar0Z7hs8KsVuottCEpVm9WlPrCO2'])
+                                                ? data['type'] == "document" ||
+                                                        data["type"] ==
+                                                                "video" &&
+                                                            validator.url(data[
+                                                                'ar0Z7hs8KsVuottCEpVm9WlPrCO2'])
                                                     ? InkWell(
                                                         onTap: () async {
                                                           // if (await canLaunchUrl(
@@ -238,138 +242,26 @@ class _GroupChatState extends State<GroupChat> {
                                                           //   throw 'Could not launch ${data['ar0Z7hs8KsVuottCEpVm9WlPrCO2']}';
                                                           // }
                                                           if (data['type'] ==
-                                                              "document") {
-                                                            // Future<File>
-                                                            //     createFileOfPdfUrl() async {
-                                                            //   Completer<File>
-                                                            //       completer =
-                                                            //       Completer();
-                                                            //   print(
-                                                            //       "Start download file from internet!");
-                                                            //   try {
-                                                            //     // "https://berlin2017.droidcon.cod.newthinking.net/sites/global.droidcon.cod.newthinking.net/files/media/documents/Flutter%20-%2060FPS%20UI%20of%20the%20future%20%20-%20DroidconDE%2017.pdf";
-                                                            //     String url = data[
-                                                            //         'ar0Z7hs8KsVuottCEpVm9WlPrCO2'];
-                                                            //     // const url = "https://firebasestorage.googleapis.com/v0/b/shaur-chat.appspot.com/o/docs%2F3425?alt=media&token=18c51f73-0741-409a-a0df-d7cafb4becde";
-                                                            //     final filename =
-                                                            //         url.substring(
-                                                            //             url.lastIndexOf("/") +
-                                                            //                 1);
-                                                            //     var request =
-                                                            //         await HttpClient()
-                                                            //             .getUrl(
-                                                            //                 Uri.parse(url));
-                                                            //     var response =
-                                                            //         await request
-                                                            //             .close();
-                                                            //     var bytes =
-                                                            //         await consolidateHttpClientResponseBytes(
-                                                            //             response);
-                                                            //     var dir =
-                                                            //         await getApplicationDocumentsDirectory();
-                                                            //     print(
-                                                            //         "Download files");
-                                                            //     print(
-                                                            //         "${dir.path}/$filename");
-                                                            //     File file = File(
-                                                            //         "${dir.path}/$filename");
-
-                                                            //     await file
-                                                            //         .writeAsBytes(
-                                                            //             bytes,
-                                                            //             flush:
-                                                            //                 true);
-                                                            //     completer
-                                                            //         .complete(
-                                                            //             file);
-                                                            //   } catch (e) {
-                                                            //     throw Exception(
-                                                            //         'Error parsing asset file!');
-                                                            //   }
-
-                                                            //   return completer
-                                                            //       .future;
-                                                            // }
-
-                                                            // Future<File> fromAsset(
-                                                            //     String asset,
-                                                            //     String
-                                                            //         filename) async {
-                                                            //   // To open from assets, you can copy them to the app storage folder, and the access them "locally"
-                                                            //   Completer<File>
-                                                            //       completer =
-                                                            //       Completer();
-
-                                                            //   try {
-                                                            //     var dir =
-                                                            //         await getApplicationDocumentsDirectory();
-                                                            //     File file = File(
-                                                            //         "${dir.path}/$filename");
-                                                            //     var data =
-                                                            //         await rootBundle
-                                                            //             .load(
-                                                            //                 asset);
-                                                            //     var bytes = data
-                                                            //         .buffer
-                                                            //         .asUint8List();
-                                                            //     await file
-                                                            //         .writeAsBytes(
-                                                            //             bytes,
-                                                            //             flush:
-                                                            //                 true);
-                                                            //     completer
-                                                            //         .complete(
-                                                            //             file);
-                                                            //   } catch (e) {
-                                                            //     throw Exception(
-                                                            //         'Error parsing asset file!');
-                                                            //   }
-
-                                                            //   return completer
-                                                            //       .future;
-                                                            // }
-
-                                                            //   if (remotePDFpath
-                                                            //       .isNotEmpty) {
-                                                            //     // Navigator.push(
-                                                            //     //   context,
-                                                            //     //   MaterialPageRoute(
-                                                            //     //     builder: (context) =>
-                                                            //     //         PDFScreen(
-                                                            //     //             path:
-                                                            //     //                 remotePDFpath, fileName: data["name"]),
-                                                            //     //   ),
-                                                            //     // );
-                                                            //     Navigator.push(
-                                                            //       context,
-                                                            //       MaterialPageRoute(
-                                                            //         builder: (context) =>
-                                                            //            MyApp()
-                                                            //       ),
-                                                            //     );
-                                                            //   }
-                                                            //   print(
-                                                            //       "type = ${data["type"]}");
-                                                            //   createFileOfPdfUrl()
-                                                            //       .then((f) {
-                                                            //     setState(() {
-                                                            //       remotePDFpath =
-                                                            //           f.path;
-                                                            //     });
-                                                            //   });
-                                                            // }
+                                                                  "document" ||
+                                                              data['type'] ==
+                                                                  "video") {
+                                                            print("object");
+                                                            _downloadFile(
+                                                                data[
+                                                                    'ar0Z7hs8KsVuottCEpVm9WlPrCO2'],
+                                                                data['name']);
                                                           }
-                                                          Navigator.push(
-                                                              context,
-                                                              MaterialPageRoute(
-                                                                  builder:
-                                                                      (context) =>
-                                                                          PdfViewer(
-                                                                            fileName:
-                                                                                data['name'],
-                                                                            URl:
-                                                                                data['ar0Z7hs8KsVuottCEpVm9WlPrCO2'],
-                                                                          )));
+                                                          // Navigator.push(
+                                                          //     context,
+                                                          //     MaterialPageRoute(
+                                                          //         builder:
+                                                          //             (context) =>
+                                                          //                 PdfViewer(
+                                                          //                   fileName:
+                                                          //                       data['name'],
+                                                          //                   URl:
+                                                          //                       data['ar0Z7hs8KsVuottCEpVm9WlPrCO2'],
+                                                          //                 )));
                                                         },
                                                         child: SizedBox(
                                                           width: 100,
@@ -381,22 +273,37 @@ class _GroupChatState extends State<GroupChat> {
                                                           ),
                                                         ),
                                                       )
-                                                    : Container(
-                                                        width: 300,
-                                                        child:
-                                                            data["ar0Z7hs8KsVuottCEpVm9WlPrCO2"] !=
-                                                                    null
-                                                                ? Text(
-                                                                    data["ar0Z7hs8KsVuottCEpVm9WlPrCO2"] ??
-                                                                        "",
-                                                                    maxLines:
-                                                                        null,
-                                                                    overflow:
-                                                                        TextOverflow
-                                                                            .visible,
-                                                                  )
-                                                                : null,
-                                                      )
+                                                    : data["type"] == "image"
+                                                        ? Row(
+                                                          children: [
+                                                            Container(
+                                                                height: 120.0,
+                                                                width: 150.0,
+                                                                child: Image(
+                                                                    image: NetworkImage(
+                                                                        data != null
+                                                                            ? data[
+                                                                                'ar0Z7hs8KsVuottCEpVm9WlPrCO2']
+                                                                            : null)),
+                                                              ),
+                                                              SizedBox(width: 10,)
+                                                          ],
+                                                        )
+                                                        : Container(
+                                                            width: 300,
+                                                            child:
+                                                                data["ar0Z7hs8KsVuottCEpVm9WlPrCO2"] !=
+                                                                        null
+                                                                    ? Text(
+                                                                        data["ar0Z7hs8KsVuottCEpVm9WlPrCO2"] ??
+                                                                            "",
+                                                                        maxLines:
+                                                                            null,
+                                                                        overflow:
+                                                                            TextOverflow.visible,
+                                                                      )
+                                                                    : null,
+                                                          )
                                                 : Text(""),
                                             // (data[widget.uid] != null)
                                             // ?
@@ -606,5 +513,37 @@ class _GroupChatState extends State<GroupChat> {
         ),
       ),
     ));
+  }
+
+  Future<void> _downloadFile(url, name) async {
+    print('downloading fle');
+    DownloadService downloadService =
+        kIsWeb ? WebDownloadService() : MobileDownloadService();
+    await downloadService.download(url: url, name: name);
+  }
+}
+
+class DownloadButton extends StatelessWidget {
+  final String name;
+
+  const DownloadButton({Key? key, required this.url, required this.name})
+      : super(key: key);
+
+  final String url;
+
+  Future<void> _downloadFile() async {
+    print('downloading fle');
+    DownloadService downloadService =
+        kIsWeb ? WebDownloadService() : MobileDownloadService();
+    await downloadService.download(url: url, name: name);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton.icon(
+      onPressed: _downloadFile,
+      icon: const Icon(Icons.download),
+      label: const Text('Download'),
+    );
   }
 }
