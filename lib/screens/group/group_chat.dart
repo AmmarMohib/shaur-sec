@@ -11,6 +11,7 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:intl/intl.dart';
 import 'package:regexed_validator/regexed_validator.dart';
 import 'package:shaur_sec/components/customs/pdf_view.dart';
+import 'package:shaur_sec/components/customs/photo_view.dart';
 import 'package:shaur_sec/components/customs/speed_dial.dart';
 import 'package:shaur_sec/screens/group/show_file.dart';
 import 'package:shaur_sec/screens/uploadFiles/upload_files.dart';
@@ -274,21 +275,34 @@ class _GroupChatState extends State<GroupChat> {
                                                         ),
                                                       )
                                                     : data["type"] == "image"
-                                                        ? Row(
-                                                          children: [
-                                                            Container(
-                                                                height: 120.0,
-                                                                width: 150.0,
-                                                                child: Image(
-                                                                    image: NetworkImage(
-                                                                        data != null
-                                                                            ? data[
-                                                                                'ar0Z7hs8KsVuottCEpVm9WlPrCO2']
-                                                                            : null)),
-                                                              ),
-                                                              SizedBox(width: 10,)
-                                                          ],
-                                                        )
+                                                        ? InkWell(
+                                                            onTap: () {
+                                                              Navigator.push(
+                                                                context,
+                                                                MaterialPageRoute(
+                                                                    builder:
+                                                                        (context) =>
+                                                                          PhotoViewer(imgUrl: data["ar0Z7hs8KsVuottCEpVm9WlPrCO2"],)),
+                                                              );
+                                                            },
+                                                            child: Row(
+                                                              children: [
+                                                                Container(
+                                                                  height: 120.0,
+                                                                  width: 150.0,
+                                                                  child: Image(
+                                                                      image: NetworkImage(data !=
+                                                                              null
+                                                                          ? data[
+                                                                              'ar0Z7hs8KsVuottCEpVm9WlPrCO2']
+                                                                          : null)),
+                                                                ),
+                                                                SizedBox(
+                                                                  width: 10,
+                                                                )
+                                                              ],
+                                                            ),
+                                                          )
                                                         : Container(
                                                             width: 300,
                                                             child:

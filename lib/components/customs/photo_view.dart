@@ -1,15 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:photo_view/photo_view.dart';
 
-class PhotoView extends StatefulWidget {
-  const PhotoView({super.key});
+class PhotoViewer extends StatefulWidget {
+  final String imgUrl;
+  const PhotoViewer({super.key, required this.imgUrl});
 
   @override
-  State<PhotoView> createState() => _PhotoViewState();
+  State<PhotoViewer> createState() => _PhotoViewerState();
 }
 
-class _PhotoViewState extends State<PhotoView> {
+class _PhotoViewerState extends State<PhotoViewer> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(icon: Icon(Icons.arrow_back_ios_rounded), onPressed: (() {
+          Navigator.pop(context);
+        }),
+      ),
+      backgroundColor: Colors.transparent,
+      ),
+      body: Container(
+        child: PhotoView(
+          imageProvider: NetworkImage(widget.imgUrl),
+        ),
+      ),
+    );
   }
 }
