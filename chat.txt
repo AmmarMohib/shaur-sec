@@ -1,0 +1,350 @@
+Row(
+                          //   crossAxisAlignment: CrossAxisAlignment.end,
+                          //   mainAxisAlignment: MainAxisAlignment.end,
+                          //   children: <Widget>[
+                          //     (datac != null)
+                          //         ? InkWell(
+                          //             onLongPress: () {
+                          //               this.activate();
+                          //               print("long pressed");
+                          //               // CAB();
+                          //             },
+                          //             child: Container(
+                          //               width:
+                          //                   MediaQuery.of(context).size.width *
+                          //                       0.5,
+                          //               decoration: BoxDecoration(
+                          //                 color: Colors.green.shade200,
+                          //                 borderRadius: const BorderRadius.only(
+                          //                   bottomRight: Radius.circular(20),
+                          //                   bottomLeft: Radius.circular(20),
+                          //                   topRight: Radius.circular(20),
+                          //                 ),
+                          //               ),
+                          //               child: Padding(
+                          //                 padding: const EdgeInsets.all(13.0),
+                          //                 child:
+                          //                     data['type'] == "document" ||
+                          //                             data["type"] == "video" &&
+                          //                                 validator.url(datac)
+                          //                         ? InkWell(
+                          //                             onTap: () async {
+                          //                               // if (await canLaunchUrl(
+                          //                               //  Uri.parse( data['ar0Z7hs8KsVuottCEpVm9WlPrCO2']))) {
+                          //                               //   await launchUrl(Uri.parse(data['ar0Z7hs8KsVuottCEpVm9WlPrCO2']), mode: LaunchMode.externalApplication);
+                          //                               // } else {
+                          //                               //   throw 'Could not launch ${data['ar0Z7hs8KsVuottCEpVm9WlPrCO2']}';
+                          //                               // }
+                          //                               if (data['type'] ==
+                          //                                       "document" ||
+                          //                                   data['type'] ==
+                          //                                       "video") {
+                          //                                 print("object");
+                          //                                 _downloadFile(datac,
+                          //                                     data['name']);
+                          //                               }
+                          //                               // Navigator.push(
+                          //                               //     context,
+                          //                               //     MaterialPageRoute(
+                          //                               //         builder:
+                          //                               //             (context) =>
+                          //                               //                 PdfViewer(
+                          //                               //                   fileName:
+                          //                               //                       data['name'],
+                          //                               //                   URl:
+                          //                               //                       data['ar0Z7hs8KsVuottCEpVm9WlPrCO2'],
+                          //                               //                 )));
+                          //                             },
+                          //                             child: SizedBox(
+                          //                               // width: 1,
+                          //                               child: Row(
+                          //                                 children: [
+                          //                                   Flexible(
+                          //                                     child: Text(
+                          //                                       data['name'],
+                          //                                       overflow:
+                          //                                           TextOverflow
+                          //                                               .visible,
+                          //                                     ),
+                          //                                   ),
+                          //                                   SizedBox(
+                          //                                     width: 10,
+                          //                                   ),
+                          //                                   Text(
+                          //                                     data["senttime"]
+                          //                                         .toString(),
+                          //                                     // data['sentOn'],
+                          //                                     style:
+                          //                                         const TextStyle(
+                          //                                       fontSize: 10,
+                          //                                     ),
+                          //                                   )
+                          //                                 ],
+                          //                               ),
+                          //                             ),
+                          //                           )
+                          //                         : data["type"] == "image"
+                          //                             ? InkWell(
+                          //                                 onTap: () {
+                          //                                   Navigator.push(
+                          //                                     context,
+                          //                                     MaterialPageRoute(
+                          //                                         builder:
+                          //                                             (context) =>
+                          //                                                 PhotoViewer(
+                          //                                                   imgUrl:
+                          //                                                       datac,
+                          //                                                 )),
+                          //                                   );
+                          //                                 },
+                          //                                 child: Row(
+                          //                                   children: [
+                          //                                     Container(
+                          //                                       height: 120.0,
+                          //                                       width: 150.0,
+                          //                                       child: Image(
+                          //                                           image: NetworkImage(
+                          //                                               datac)),
+                          //                                     ),
+                          //                                     SizedBox(
+                          //                                       width: 10,
+                          //                                     ),
+                          //                                     Flexible(
+                          //                                       child: Text(
+                          //                                         data["senttime"]
+                          //                                             .toString(),
+                          //                                         // data['sentOn'],
+                          //                                         style:
+                          //                                             const TextStyle(
+                          //                                           fontSize:
+                          //                                               10,
+                          //                                         ),
+                          //                                         overflow:
+                          //                                             TextOverflow
+                          //                                                 .visible,
+                          //                                       ),
+                          //                                     )
+                          //                                   ],
+                          //                                 ),
+                                         
+                          //                               )
+                          //                             : Row(
+                          //                                 children: <Widget>[
+                          //                                   (datac != null)
+                          //                                       ? Expanded(
+                          //                                           child: FirebaseAuth.instance.currentUser!.uid ==
+                          //                                                   "ar0Z7hs8KsVuottCEpVm9WlPrCO2"
+                          //                                               ? Text(
+                          //                                                   datac,
+                          //                                                   maxLines:
+                          //                                                       null,
+                          //                                                   overflow:
+                          //                                                       TextOverflow.visible,
+                          //                                                   style:
+                          //                                                       const TextStyle(fontSize: 14, color: Colors.black),
+                          //                                                 )
+                          //                                               : Text(
+                          //                                                   datac,
+                          //                                                   maxLines:
+                          //                                                       null,
+                          //                                                   overflow:
+                          //                                                       TextOverflow.visible,
+                          //                                                   style:
+                          //                                                       const TextStyle(fontSize: 14, color: Colors.black),
+                          //                                                 ),
+                          //                                         )
+                          //                                       : const Text(
+                          //                                           ''),
+                          //                                   (data[FirebaseAuth
+                          //                                               .instance
+                          //                                               .currentUser!
+                          //                                               .uid] !=
+                          //                                           null)
+                          //                                       ? const Text(
+                          //                                           "",
+                          //                                           // data['sentOn'],
+                          //                                           style:
+                          //                                               TextStyle(
+                          //                                             fontSize:
+                          //                                                 10,
+                          //                                           ),
+                          //                                         )
+                          //                                       : const Text(
+                          //                                           ""),
+                          //                                   SizedBox(
+                          //                                     width: 10,
+                          //                                   ),
+                          //                                   Text(
+                          //                                     data["senttime"]
+                          //                                         .toString(),
+                          //                                     // data['sentOn'],
+                          //                                     style:
+                          //                                         const TextStyle(
+                          //                                       fontSize: 10,
+                          //                                     ),
+                          //                                   )
+                          //                                 ],
+                          //                               ),
+                          //               ),
+                          //             ),
+                          //           )
+                          //         : datao != null && FirebaseAuth.instance.currentUser!.uid == "ar0Z7hs8KsVuottCEpVm9WlPrCO2" ? Padding(
+                          //           padding: const EdgeInsets.only(right:8.0),
+                          //           child: ChatModel(modelColor: Color.fromARGB(255, 104, 156, 170),datatext: datao,data: data,),
+                          //         ) :Text(""),
+                          //   ],
+                          // ),
+                          // SizedBox(
+                          //   height: 10,
+                          // ),
+                          // data["ar0Z7hs8KsVuottCEpVm9WlPrCO2"] != null
+                          //     ? Padding(
+                          //         padding:
+                          //             const EdgeInsets.symmetric(vertical: 10),
+                          //         child: Row(
+                          //           crossAxisAlignment:
+                          //               CrossAxisAlignment.start,
+                          //           mainAxisAlignment: MainAxisAlignment.start,
+                          //           children: <Widget>[
+                          //             // (data[widget.uid] != null)
+                          //             // ?
+                          //             Container(
+                          //               decoration: BoxDecoration(
+                          //                 color: Colors.grey.shade200,
+                          //                 borderRadius: const BorderRadius.only(
+                          //                   bottomRight: Radius.circular(20),
+                          //                   bottomLeft: Radius.circular(20),
+                          //                   topRight: Radius.circular(20),
+                          //                 ),
+                          //               ),
+                          //               child: Padding(
+                          //                 padding: const EdgeInsets.all(13.0),
+                          //                 child: Column(
+                          //                   children: [
+                          //                     // Text(widget.name),
+                          //                     Row(
+                          //                       children: [
+                          //                         data['ar0Z7hs8KsVuottCEpVm9WlPrCO2'] !=
+                          //                                 null
+                          //                             ? data['type'] ==
+                          //                                         "document" ||
+                          //                                     data["type"] ==
+                          //                                             "video" &&
+                          //                                         validator.url(
+                          //                                             data[
+                          //                                                 'ar0Z7hs8KsVuottCEpVm9WlPrCO2'])
+                          //                                 ? InkWell(
+                          //                                     onTap: () async {
+                          //                                       // if (await canLaunchUrl(
+                          //                                       //  Uri.parse( data['ar0Z7hs8KsVuottCEpVm9WlPrCO2']))) {
+                          //                                       //   await launchUrl(Uri.parse(data['ar0Z7hs8KsVuottCEpVm9WlPrCO2']), mode: LaunchMode.externalApplication);
+                          //                                       // } else {
+                          //                                       //   throw 'Could not launch ${data['ar0Z7hs8KsVuottCEpVm9WlPrCO2']}';
+                          //                                       // }
+                          //                                       if (data['type'] ==
+                          //                                               "document" ||
+                          //                                           data['type'] ==
+                          //                                               "video") {
+                          //                                         print(
+                          //                                             "object");
+                          //                                         _downloadFile(
+                          //                                             data[
+                          //                                                 'ar0Z7hs8KsVuottCEpVm9WlPrCO2'],
+                          //                                             data[
+                          //                                                 'name']);
+                          //                                       }
+                          //                                       // Navigator.push(
+                          //                                       //     context,
+                          //                                       //     MaterialPageRoute(
+                          //                                       //         builder:
+                          //                                       //             (context) =>
+                          //                                       //                 PdfViewer(
+                          //                                       //                   fileName:
+                          //                                       //                       data['name'],
+                          //                                       //                   URl:
+                          //                                       //                       data['ar0Z7hs8KsVuottCEpVm9WlPrCO2'],
+                          //                                       //                 )));
+                          //                                     },
+                          //                                     child: SizedBox(
+                          //                                       width: 100,
+                          //                                       child: Text(
+                          //                                         data['name'],
+                          //                                         overflow:
+                          //                                             TextOverflow
+                          //                                                 .visible,
+                          //                                       ),
+                          //                                     ),
+                          //                                   )
+                          //                                 : data["type"] ==
+                          //                                         "image"
+                          //                                     ? InkWell(
+                          //                                         onTap: () {
+                          //                                           Navigator
+                          //                                               .push(
+                          //                                             context,
+                          //                                             MaterialPageRoute(
+                          //                                                 builder: (context) =>
+                          //                                                     PhotoViewer(
+                          //                                                       imgUrl: data["ar0Z7hs8KsVuottCEpVm9WlPrCO2"],
+                          //                                                     )),
+                          //                                           );
+                          //                                         },
+                          //                                         child: Row(
+                          //                                           children: [
+                          //                                             Container(
+                          //                                               height:
+                          //                                                   120.0,
+                          //                                               width:
+                          //                                                   150.0,
+                          //                                               child: Image(
+                          //                                                   image:
+                          //                                                       NetworkImage(data['ar0Z7hs8KsVuottCEpVm9WlPrCO2'])),
+                          //                                             ),
+                          //                                             SizedBox(
+                          //                                               width:
+                          //                                                   10,
+                          //                                             )
+                          //                                           ],
+                          //                                         ),
+                          //                                       )
+                          //                                     // : Text("")
+                          //                                     // :
+                          //                                     : Container(
+                          //                                         width: 300,
+                          //                                         child: Text(
+                          //                                           data[
+                          //                                               "ar0Z7hs8KsVuottCEpVm9WlPrCO2"],
+                          //                                           maxLines:
+                          //                                               null,
+                          //                                           overflow:
+                          //                                               TextOverflow
+                          //                                                   .visible,
+                          //                                         ))
+                          //                             : Container(),
+
+                          //                         // (data[widget.uid!] != null)
+                          //                         // ?
+                          //                         data["ar0Z7hs8KsVuottCEpVm9WlPrCO2"] !=
+                          //                                 null
+                          //                             ? Text(
+                          //                                 data["senttime"]
+                          //                                     .toString(),
+                          //                                 // data['sentOn'],
+                          //                                 style:
+                          //                                     const TextStyle(
+                          //                                   fontSize: 10,
+                          //                                 ),
+                          //                               )
+                          //                             : Container(),
+                          //                         // : Container()
+                          //                       ],
+                          //                     ),
+                          //                   ],
+                          //                 ),
+                          //               ),
+                          //             )
+                          //             // : Container(),
+                          //           ],
+                          //         ),
+                          //       )
+                          //     : Text(""),

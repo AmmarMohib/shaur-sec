@@ -36,24 +36,40 @@ class FirestoreApi {
         .collection('Admin')
         .doc("Groups")
         .collection("data");
-    List con = [
-      {"contacts": contactsJson}
-    ];
+    // List con = [
+    //   {"contacts": contactsJson}
+    // ];
+    // List nums = [
+    //   {"phones": numbers}
+    // ];
     var UsersPhones = FirebaseFirestore.instance.collection('UsersPhones');
-    for (var i = 0; i < contacts.length; i++) {
-      UsersPhones.add({"num": contacts[i].phones.first.number});
-    }
+    
+    // var phones = FirebaseFirestore.instance.collection;
+
     // print(arr[i]);uuuuuuut8
     // var rng = Random();
-    for (var i = 0; i < 10; i++) {
-      // print(rng.nextInt(10))]
-      print(i);
-    }
+    var id;
     await refUser.add({
       // 'username': 'alex',
-      'Contact': con,
+      // 'Contact': con,
       'title': title,
+      // 'nums': nums
+    }).then((value) {
+      id = value.id;
     });
+    var refPhones = FirebaseFirestore.instance
+        .collection('Admin')
+        .doc("Groups")
+        .collection("data")
+        .doc(id)
+        .collection("nums");
+    for (var i = 0; i < contacts.length; i++) {
+      var con = contacts[i].phones.first.number;
+      UsersPhones.add({"num": con});
+      await refPhones
+          .add({'numbers': con});
+    }
+
     // }
   }
 }
@@ -64,7 +80,8 @@ class _CreateGroupState extends State<CreateGroup> {
   final Stream<QuerySnapshot> _usersStream =
       FirebaseFirestore.instance.collection('users').snapshots();
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext 
+  context) {
     // print(widget.conList);
     return MaterialApp(
       home: Scaffold(
@@ -127,10 +144,12 @@ class _CreateGroupState extends State<CreateGroup> {
               scrollDirection: Axis.vertical,
               itemBuilder: (BuildContext context, int index) {
                 return ListTile(
-                    leading: CircleAvatar(child: Icon(Icons.person)),
-                    title: Text(
-                      widget.conList![index].displayName ?? '',
-                    ));
+                  leading: CircleAvatar(child: Icon(Icons.person)),
+                  title: Text(
+                    widget.conList![index].displayName ?? '',
+                  ),
+                  subtitle: Text(widget.conList![index].phones.first.number),
+                );
               },
               // subtitle: Text(data['company']),
             ),
@@ -198,10 +217,20 @@ class _CreateGroupState extends State<CreateGroup> {
     //       // 'username': 'alex',
     //       'contacts': contactsJson,
     //     });
-    FirestoreApi.uploadContacts(widget.conList ?? [], _titleController.text);
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => HomePage())
-    );
+    // List a = [];
+    // widget.conList!.asMap().forEach((key, value) {
+    //   a.add(value.phones.first.number);
+
+     
+    //   // for (var i in widget.conList!) {
+    //   //   // var a = widget.conList![i].first.number;
+    //   //   print(widget.conList![i].first.number);
+    //   // }
+    //   print(value.phones.first.number);
+    // });
+     Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => HomePage()));
+      FirestoreApi.uploadContacts(widget.conList ?? [], _titleController.text);
+
   }
 }

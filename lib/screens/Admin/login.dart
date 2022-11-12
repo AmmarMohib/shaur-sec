@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names, avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:shaur_sec/screens/Admin/admin.dart';
 
@@ -10,7 +12,7 @@ class AdminLogin extends StatefulWidget {
 
 class _AdminLoginState extends State<AdminLogin> {
   bool obscure = true;
-  TextEditingController _PassController = TextEditingController();
+  final TextEditingController _PassController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -40,7 +42,7 @@ class _AdminLoginState extends State<AdminLogin> {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.05,
               ),
-              Text(
+              const Text(
                 "Welcome Back Admin, You need to enter \n Password below to Continue",
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -65,7 +67,7 @@ class _AdminLoginState extends State<AdminLogin> {
                                 Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => Admin()))
+                              builder: (context) => const Admin()))
                             }
                         else
                           {print("wrong Password")}
@@ -86,16 +88,16 @@ class _AdminLoginState extends State<AdminLogin> {
                           Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => Admin()));
+                              builder: (context) => const Admin()));
                     } else {
                       print("wrong Password");
                     }
                   },
-                  child: Text("Continue as Admin"),
                   style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(
-                          Color.fromRGBO(6, 49, 70, 1.0)),
+                          const Color.fromRGBO(6, 49, 70, 1.0)),
                       elevation: MaterialStateProperty.all(0)),
+                  child: const Text("Continue as Admin"),
                 ),
               ),
             ]),

@@ -10,6 +10,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:intl/intl.dart';
 import 'package:regexed_validator/regexed_validator.dart';
+import 'package:shaur_sec/components/chatModel.dart';
 import 'package:shaur_sec/components/customs/pdf_view.dart';
 import 'package:shaur_sec/components/customs/photo_view.dart';
 import 'package:shaur_sec/components/customs/speed_dial.dart';
@@ -83,6 +84,7 @@ class _GroupChatState extends State<GroupChat> {
                   .collection("data")
                   .doc(widget.DOCId)
                   .collection("messages")
+                  .orderBy("senttime")
                   .snapshots(includeMetadataChanges: true),
               builder: (BuildContext context,
                   AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -101,257 +103,121 @@ class _GroupChatState extends State<GroupChat> {
                         snapshot.data!.docs.map((DocumentSnapshot document) {
                       Map<String, dynamic> data =
                           document.data()! as Map<String, dynamic>;
+                      var datac = data["ar0Z7hs8KsVuottCEpVm9WlPrCO2"
+                                  .toString()
+                                  .compareTo(
+                                      FirebaseAuth.instance.currentUser!.uid) >
+                              0
+                          ? "ar0Z7hs8KsVuottCEpVm9WlPrCO2" +
+                              FirebaseAuth.instance.currentUser!.uid
+                          : FirebaseAuth.instance.currentUser!.uid +
+                              "ar0Z7hs8KsVuottCEpVm9WlPrCO2"];
+                      var datao = data["uid"] != null
+                          ? data["uid"].toString().compareTo(
+                                      FirebaseAuth.instance.currentUser!.uid) >
+                                  0
+                              ? data["uid"] +
+                                  FirebaseAuth.instance.currentUser!.uid
+                              : FirebaseAuth.instance.currentUser!.uid +
+                                  data["uid"]
+                          : null;
                       return Column(
                         children: [
+                          //     Row(
+                          //       crossAxisAlignment: CrossAxisAlignment.end,
+                          //       mainAxisAlignment: MainAxisAlignment.end,
+                          //       children: <Widget>[
+                          //         // (datac != null)
+
+                          //     //  datac != null ? ChatModel(data: data, datatext: data[datac], modelColor: Colors.red):Text("")
+                          //     ChatModel(modelColor: Color.fromARGB(255, 104, 156, 170),datatext: datao,data: data,)
+                          //   ]
+                          // )
+
+                         FirebaseAuth.instance.currentUser!.uid == "ar0Z7hs8KsVuottCEpVm9WlPrCO2" ?
+                         Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: <Widget>[
+                              // SizedBox(height: 100,),
+                              (datac != null)
+                                  ? ChatModel(data: data, datatext: datac, modelColor: Color.fromARGB(255, 172, 180, 182))
+                                  : datao != null &&
+                                          FirebaseAuth
+                                                  .instance.currentUser!.uid ==
+                                              "ar0Z7hs8KsVuottCEpVm9WlPrCO2"
+                                      ? Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 5.0),
+                                          child: ChatModel(
+                                            modelColor: Color.fromARGB(255, 23, 53, 61),
+                                            datatext: data[datao],
+                                            data: data,
+                                          ),
+                                        )
+                                      : Text(""),
+                                      // SizedBox(height: 1000,)
+                            ],
+                          ):
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: <Widget>[
-                              (data["ar0Z7hs8KsVuottCEpVm9WlPrCO2"
-                                                  .toString()
-                                                  .compareTo(FirebaseAuth
-                                                      .instance
-                                                      .currentUser!
-                                                      .uid) >
-                                              0
-                                          ? "ar0Z7hs8KsVuottCEpVm9WlPrCO2" +
-                                              FirebaseAuth
-                                                  .instance.currentUser!.uid
-                                          : FirebaseAuth
-                                                  .instance.currentUser!.uid +
-                                              "ar0Z7hs8KsVuottCEpVm9WlPrCO2"] !=
-                                      null)
-                                  ? InkWell(
-                                      onLongPress: () {
-                                        this.activate();
-                                        print("long pressed");
-                                        // CAB();
-                                      },
-                                      child: Container(
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.5,
-                                        decoration: BoxDecoration(
-                                          color: Colors.green.shade200,
-                                          borderRadius: const BorderRadius.only(
-                                            bottomRight: Radius.circular(20),
-                                            bottomLeft: Radius.circular(20),
-                                            topRight: Radius.circular(20),
+                              (datac != null)
+                                  ? ChatModel(data: data, datatext: datac, modelColor: Color.fromARGB(255, 37, 94, 123))
+                                  : datao != null &&
+                                          FirebaseAuth
+                                                  .instance.currentUser!.uid ==
+                                              "ar0Z7hs8KsVuottCEpVm9WlPrCO2"
+                                      ? Padding(
+                                          padding:
+                                              const EdgeInsets.only(right: 8.0),
+                                          child: ChatModel(
+                                            modelColor: Color.fromARGB(255, 37, 94, 123),
+                                            datatext: data[datao],
+                                            data: data,
                                           ),
-                                        ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(13.0),
-                                          child: Row(
-                                            children: <Widget>[
-                                              (data["ar0Z7hs8KsVuottCEpVm9WlPrCO2"
-                                                                  .toString()
-                                                                  .compareTo(FirebaseAuth
-                                                                      .instance
-                                                                      .currentUser!
-                                                                      .uid) >
-                                                              0
-                                                          ? "ar0Z7hs8KsVuottCEpVm9WlPrCO2" +
-                                                              FirebaseAuth
-                                                                  .instance
-                                                                  .currentUser!
-                                                                  .uid
-                                                          : FirebaseAuth
-                                                                  .instance
-                                                                  .currentUser!
-                                                                  .uid +
-                                                              "ar0Z7hs8KsVuottCEpVm9WlPrCO2"] !=
-                                                      null)
-                                                  ? Expanded(
-                                                      child: Text(
-                                                        "${data["ar0Z7hs8KsVuottCEpVm9WlPrCO2".toString().compareTo(FirebaseAuth.instance.currentUser!.uid) > 0 ? "ar0Z7hs8KsVuottCEpVm9WlPrCO2" + FirebaseAuth.instance.currentUser!.uid : FirebaseAuth.instance.currentUser!.uid + "ar0Z7hs8KsVuottCEpVm9WlPrCO2"]}",
-                                                        maxLines: null,
-                                                        overflow: TextOverflow
-                                                            .visible,
-                                                        style: const TextStyle(
-                                                            fontSize: 14,
-                                                            color:
-                                                                Colors.black),
-                                                      ),
-                                                    )
-                                                  : const Text(''),
-                                              (data[FirebaseAuth.instance
-                                                          .currentUser!.uid] !=
-                                                      null)
-                                                  ? const Text(
-                                                      "",
-                                                      // data['sentOn'],
-                                                      style: TextStyle(
-                                                        fontSize: 10,
-                                                      ),
-                                                    )
-                                                  : const Text(""),
-                                              data != null
-                                                  ? Text(
-                                                      data["senttime"]
-                                                          .toString(),
-                                                      // data['sentOn'],
-                                                      style: const TextStyle(
-                                                        fontSize: 10,
-                                                      ),
-                                                    )
-                                                  : const Text("")
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    )
-                                  : Container(),
+                                        )
+                                        
+                                      : Text(""),
                             ],
                           ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 10),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: <Widget>[
-                                // (data[widget.uid] != null)
-                                // ?
-                                Container(
-                                  decoration: BoxDecoration(
-                                    color: Colors.grey.shade200,
-                                    borderRadius: const BorderRadius.only(
-                                      bottomRight: Radius.circular(20),
-                                      bottomLeft: Radius.circular(20),
-                                      topRight: Radius.circular(20),
-                                    ),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(13.0),
-                                    child: Column(
-                                      children: [
-                                        // Text(widget.name),
-                                        Row(
-                                          children: [
-                                            data['ar0Z7hs8KsVuottCEpVm9WlPrCO2'] !=
-                                                    null
-                                                ? data['type'] == "document" ||
-                                                        data["type"] ==
-                                                                "video" &&
-                                                            validator.url(data[
-                                                                'ar0Z7hs8KsVuottCEpVm9WlPrCO2'])
-                                                    ? InkWell(
-                                                        onTap: () async {
-                                                          // if (await canLaunchUrl(
-                                                          //  Uri.parse( data['ar0Z7hs8KsVuottCEpVm9WlPrCO2']))) {
-                                                          //   await launchUrl(Uri.parse(data['ar0Z7hs8KsVuottCEpVm9WlPrCO2']), mode: LaunchMode.externalApplication);
-                                                          // } else {
-                                                          //   throw 'Could not launch ${data['ar0Z7hs8KsVuottCEpVm9WlPrCO2']}';
-                                                          // }
-                                                          if (data['type'] ==
-                                                                  "document" ||
-                                                              data['type'] ==
-                                                                  "video") {
-                                                            print("object");
-                                                            _downloadFile(
-                                                                data[
-                                                                    'ar0Z7hs8KsVuottCEpVm9WlPrCO2'],
-                                                                data['name']);
-                                                          }
-                                                          // Navigator.push(
-                                                          //     context,
-                                                          //     MaterialPageRoute(
-                                                          //         builder:
-                                                          //             (context) =>
-                                                          //                 PdfViewer(
-                                                          //                   fileName:
-                                                          //                       data['name'],
-                                                          //                   URl:
-                                                          //                       data['ar0Z7hs8KsVuottCEpVm9WlPrCO2'],
-                                                          //                 )));
-                                                        },
-                                                        child: SizedBox(
-                                                          width: 100,
-                                                          child: Text(
-                                                            data['name'],
-                                                            overflow:
-                                                                TextOverflow
-                                                                    .visible,
-                                                          ),
-                                                        ),
-                                                      )
-                                                    : data["type"] == "image"
-                                                        ? InkWell(
-                                                            onTap: () {
-                                                              Navigator.push(
-                                                                context,
-                                                                MaterialPageRoute(
-                                                                    builder:
-                                                                        (context) =>
-                                                                          PhotoViewer(imgUrl: data["ar0Z7hs8KsVuottCEpVm9WlPrCO2"],)),
-                                                              );
-                                                            },
-                                                            child: Row(
-                                                              children: [
-                                                                Container(
-                                                                  height: 120.0,
-                                                                  width: 150.0,
-                                                                  child: Image(
-                                                                      image: NetworkImage(data !=
-                                                                              null
-                                                                          ? data[
-                                                                              'ar0Z7hs8KsVuottCEpVm9WlPrCO2']
-                                                                          : null)),
-                                                                ),
-                                                                SizedBox(
-                                                                  width: 10,
-                                                                )
-                                                              ],
-                                                            ),
-                                                          )
-                                                        : Container(
-                                                            width: 300,
-                                                            child:
-                                                                data["ar0Z7hs8KsVuottCEpVm9WlPrCO2"] !=
-                                                                        null
-                                                                    ? Text(
-                                                                        data["ar0Z7hs8KsVuottCEpVm9WlPrCO2"] ??
-                                                                            "",
-                                                                        maxLines:
-                                                                            null,
-                                                                        overflow:
-                                                                            TextOverflow.visible,
-                                                                      )
-                                                                    : null,
-                                                          )
-                                                : Text(""),
-                                            // (data[widget.uid] != null)
-                                            // ?
-                                            const Text(
-                                              "",
-
-                                              // "${data[widget.uid]} ",
-                                              style: TextStyle(
-                                                  fontSize: 14,
-                                                  color: Colors.black),
-                                            ),
-                                            // : Container(),
-                                            // (data[widget.uid!] != null)
-                                            // ?
-                                            data != null
-                                                ? Text(
-                                                    data["senttime"].toString(),
-                                                    // data['sentOn'],
-                                                    style: const TextStyle(
-                                                      fontSize: 10,
-                                                    ),
-                                                  )
-                                                : const Text(""),
-                                            // : Container()
-                                          ],
-                                        ),
-                                      ],
-                                    ),
+                          SizedBox(
+                            // height: 100,
+                          ),
+                          data["ar0Z7hs8KsVuottCEpVm9WlPrCO2"] != null
+                              ? FirebaseAuth.instance.currentUser!.uid == "ar0Z7hs8KsVuottCEpVm9WlPrCO2" ? 
+                              Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 10,horizontal: 5),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.end,
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: <Widget>[
+                                      ChatModel(
+                                          data: data,
+                                          datatext: data[
+                                              "ar0Z7hs8KsVuottCEpVm9WlPrCO2"],
+                                          modelColor: Color.fromARGB(255, 37, 94, 123))]))
+                              : Padding(
+                                 padding:
+                                      const EdgeInsets.symmetric(vertical: 10),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: <Widget>[
+                                      ChatModel(
+                                          data: data,
+                                          datatext: data[
+                                              "ar0Z7hs8KsVuottCEpVm9WlPrCO2"],
+                                          modelColor: Color.fromARGB(255, 172, 180, 182))
+                                    ],
                                   ),
                                 )
-                                // : Container(),
-                              ],
-                            ),
-                          ),
+                              : Text(""),
+                          //
                         ],
                       );
                     }).toList(),
@@ -364,8 +230,9 @@ class _GroupChatState extends State<GroupChat> {
                 child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
                   // First child is enter comment text input
                   Expanded(
-                    child: TextFormField(
+                    child: TextField(
                       controller: _chatCon,
+                      onSubmitted: (d) => _sendMessage(),
                       autocorrect: false,
                       decoration: const InputDecoration(
                         labelText: "Some Text",
@@ -452,74 +319,7 @@ class _GroupChatState extends State<GroupChat> {
                     icon: const Icon(Icons.send),
                     iconSize: 20.0,
                     onPressed: () async {
-//                       print(chatController.text);
-                      DateTime now = DateTime.now();
-                      print(now.hour.toString() +
-                          ":" +
-                          now.minute.toString() +
-                          ":" +
-                          now.second.toString());
-                      print(now.day);
-                      print(now.month);
-                      print(now.year);
-                      if (FirebaseAuth.instance.currentUser!.uid ==
-                          "ar0Z7hs8KsVuottCEpVm9WlPrCO2") {
-                        print("this is an admin");
-                        FirebaseFirestore.instance.settings = const Settings(
-                          persistenceEnabled: true,
-                          cacheSizeBytes: Settings.CACHE_SIZE_UNLIMITED,
-                        );
-                        var ref = FirebaseAuth.instance.currentUser!.uid;
-                        FirebaseFirestore.instance
-                            .collection("Admin")
-                            .doc("Groups")
-                            .collection("data")
-                            .doc(widget.DOCId)
-                            .collection("messages")
-                            .add({
-                          "ar0Z7hs8KsVuottCEpVm9WlPrCO2": _chatCon.text,
-                          // "sentOn": currentTime,
-                          // "sentdate": formatter,
-                          "senttime": DateFormat.jm().format(DateTime.now())
-                          // "id" : messageId,
-                        }).then((value) => {
-                                  // messageId = value.id,
-                                  print(value.id)
-                                });
-                        _chatCon.clear();
-//                       print(docId);
-                      } else {
-                        print("no admin");
-                        FirebaseFirestore.instance.settings = const Settings(
-                          persistenceEnabled: true,
-                          cacheSizeBytes: Settings.CACHE_SIZE_UNLIMITED,
-                        );
-                        var ref = FirebaseAuth.instance.currentUser!.uid;
-                        FirebaseFirestore.instance
-                            .collection("Admin")
-                            .doc("Groups")
-                            .collection("data")
-                            .doc(widget.DOCId)
-                            .collection("messages")
-                            .add({
-                          "ar0Z7hs8KsVuottCEpVm9WlPrCO2".toString().compareTo(
-                                      FirebaseAuth.instance.currentUser!.uid) >
-                                  0
-                              ? "ar0Z7hs8KsVuottCEpVm9WlPrCO2" +
-                                  FirebaseAuth.instance.currentUser!.uid
-                              : FirebaseAuth.instance.currentUser!.uid +
-                                  "ar0Z7hs8KsVuottCEpVm9WlPrCO2": _chatCon.text,
-                          // "sentOn": currentTime,
-                          // "sentdate": formatter,
-                          "senttime": DateFormat.jm().format(DateTime.now())
-                          // "id" : messageId,
-                        }).then((value) => {
-                                  // messageId = value.id,
-                                  print(value.id)
-                                });
-                        _chatCon.clear();
-//                       print(docId);
-                      }
+                      _sendMessage();
                     },
                   ),
                 ])),
@@ -527,6 +327,93 @@ class _GroupChatState extends State<GroupChat> {
         ),
       ),
     ));
+  }
+
+  _sendMessage() {
+    //                       print(chatController.text);
+    DateTime now = DateTime.now();
+    print(now.hour.toString() +
+        ":" +
+        now.minute.toString() +
+        ":" +
+        now.second.toString());
+    print(now.day);
+    print(now.month);
+    print(now.year);
+    print(DateFormat.jm().format(DateTime.now()));
+    if (FirebaseAuth.instance.currentUser!.uid ==
+        "ar0Z7hs8KsVuottCEpVm9WlPrCO2") {
+      print("this is an admin");
+      FirebaseFirestore.instance.settings = const Settings(
+        persistenceEnabled: true,
+        cacheSizeBytes: Settings.CACHE_SIZE_UNLIMITED,
+      );
+      String formattedDate = DateFormat().add_yMMMEd().add_jms().format(now);
+      print(formattedDate);
+      var ref = FirebaseAuth.instance.currentUser!.uid;
+      FirebaseFirestore.instance
+          .collection("Admin")
+          .doc("Groups")
+          .collection("data")
+          .doc(widget.DOCId)
+          .collection("messages")
+          .add({
+        "ar0Z7hs8KsVuottCEpVm9WlPrCO2": _chatCon.text,
+        // "sentOn": currentTime,
+        // "sentdate": now.day+now.hour+now.month,
+        "senttime": formattedDate
+        // "id" : messageId,
+      }).then((value) => {
+                // messageId = value.id,
+                print(value.id)
+              });
+      _chatCon.clear();
+//                       print(docId);
+    } else {
+      print("no admin");
+      FirebaseFirestore.instance.settings = const Settings(
+        persistenceEnabled: true,
+        cacheSizeBytes: Settings.CACHE_SIZE_UNLIMITED,
+      );
+      String formattedDate = DateFormat().add_yMMMEd().add_jms().format(now);
+      var ref = FirebaseAuth.instance.currentUser!.uid;
+      FirebaseFirestore.instance
+          .collection("Admin")
+          .doc("Groups")
+          .collection("data")
+          .doc(widget.DOCId)
+          .collection("uids")
+          .add({"uid": FirebaseAuth.instance.currentUser!.uid}).then(
+              (value) => {
+                    // messageId = value.id,
+                    print(value.id)
+                  });
+      FirebaseFirestore.instance
+          .collection("Admin")
+          .doc("Groups")
+          .collection("data")
+          .doc(widget.DOCId)
+          .collection("messages")
+          .add({
+        "ar0Z7hs8KsVuottCEpVm9WlPrCO2"
+                    .toString()
+                    .compareTo(FirebaseAuth.instance.currentUser!.uid) >
+                0
+            ? "ar0Z7hs8KsVuottCEpVm9WlPrCO2" +
+                FirebaseAuth.instance.currentUser!.uid
+            : FirebaseAuth.instance.currentUser!.uid +
+                "ar0Z7hs8KsVuottCEpVm9WlPrCO2": _chatCon.text,
+        // "sentOn": currentTime,
+        // "sentdate": formatter,
+        "senttime": formattedDate, // "id" : messageId,
+        "uid": FirebaseAuth.instance.currentUser!.uid
+      }).then((value) => {
+                // messageId = value.id,
+                print(value.id)
+              });
+      _chatCon.clear();
+//                       print(docId);
+    }
   }
 
   Future<void> _downloadFile(url, name) async {

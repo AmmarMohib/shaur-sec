@@ -14,16 +14,15 @@ class _PhotoViewerState extends State<PhotoViewer> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(icon: Icon(Icons.arrow_back_ios_rounded), onPressed: (() {
+        leading: IconButton(icon: const Icon(Icons.arrow_back_ios_rounded), onPressed: (() {
           Navigator.pop(context);
         }),
       ),
-      backgroundColor: Colors.transparent,
+                  backgroundColor: const Color.fromRGBO(6, 49, 70, 1),
+
       ),
-      body: Container(
-        child: PhotoView(
-          imageProvider: NetworkImage(widget.imgUrl),
-        ),
+      body: PhotoView(
+        imageProvider: NetworkImage(widget.imgUrl),
       ),
     );
   }

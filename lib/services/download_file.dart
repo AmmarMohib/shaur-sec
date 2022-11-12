@@ -1,11 +1,13 @@
 // ignore_for_file: depend_on_referenced_packages
 
 import 'dart:io';
+import 'dart:ui';
 
 import 'package:dio/dio.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:permission_handler/permission_handler.dart';
+// import 'package:permission_handler/permission_handler.dart';
 import 'package:regexed_validator/regexed_validator.dart';
 import 'package:universal_html/html.dart' as html;
 
@@ -23,12 +25,11 @@ class WebDownloadService implements DownloadService {
 class MobileDownloadService implements DownloadService {
   @override
   Future<void> download({required String url, required String name}) async {
-    bool hasPermission = await _requestWritePermission();
-    if (!hasPermission) return;
+    // bool hasPermission = await _requestWritePermission();
+    // if (!hasPermission) return;
 
     Dio dio = Dio();
     var dir = await getApplicationDocumentsDirectory();
-    print(dir.path);
 
     // You should put the name you want for the file here.
     // Take in account the extension.
@@ -38,21 +39,18 @@ class MobileDownloadService implements DownloadService {
     // } else {
     //   print("the file does not exists");
     // }
-    var existance;
-    print(File("${dir.path}/$fileName")
-        .exists()
-        .then((value) => print("the file existance == " + value.toString())));
-  //  var a = await  File("${dir.path}/$fileName").exists().then((value) => existance = value);
-    if (existance = true) {
-      print("the file exists");
-    OpenFile.open("${dir.path}/$fileName");
-    } else {
-      print("the file is not available");
+    bool existance = false;
+     var a = await  File("${dir.path}/$fileName").exists().then((value) => existance = value);
+    if (existance == true) {
+      OpenFile.open("${dir.path}/$fileName");
+    } else if(existance == false) {
+      Fluttertoast.showToast(
+          msg: 'downloading file, first time please wait',
+          fontSize: 20,
+          backgroundColor: Color.fromRGBO(0, 124, 195, 1.0));
       var a = "${dir.path}/$fileName";
-    await dio.download(url, a);
-    print("data ==== " + a);
-    OpenFile.open("${dir.path}/$fileName");
-
+      await dio.download(url, a);
+      OpenFile.open("${dir.path}/$fileName");
     }
     // var a = "${dir.path}/$fileName";
     // await dio.download(url, a);
@@ -60,8 +58,8 @@ class MobileDownloadService implements DownloadService {
     // OpenFile.open("${dir.path}/$fileName");
   }
 
-  Future<bool> _requestWritePermission() async {
-    await Permission.storage.request();
-    return await Permission.storage.request().isGranted;
-  }
+  // Future<bool> _requestWritePermission() async {
+  //   // await Permission.storage.request();
+  //   // return await Permission.storage.request().isGranted;
+  // }
 }

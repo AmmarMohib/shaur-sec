@@ -161,7 +161,7 @@ class SignUpScreenState extends State<SignUpScreen> {
                     field_con: _AdOtpCon,
                     hint_txt: "Enter Otp, sent to you admin",
                   ),
-                  visible: AdOtpVisibility,
+                  visible: otpVisibility,
                 ),
                 // const SizedBox(
                 //   height: 30,
@@ -243,6 +243,7 @@ class SignUpScreenState extends State<SignUpScreen> {
                                       int? resendToken) {
                                     setState(() {
                                       verificationID = verificationId;
+                                      otpVisibility = true;
                                     });
                                   },
                                   timeout: const Duration(seconds: 120),
@@ -320,7 +321,10 @@ class SignUpScreenState extends State<SignUpScreen> {
                                         },
                                         codeSent: (String verificationId,
                                             int? resendToken) {
-                                          setState(() {});
+                                          setState(() {
+                                            verificationID = verificationId;
+                                            otpVisibility = true;
+                                          });
                                         },
                                         codeAutoRetrievalTimeout:
                                             (String verificationId) {

@@ -110,6 +110,8 @@
 //   }
 // }
 
+// ignore_for_file: depend_on_referenced_packages, non_constant_identifier_names, library_private_types_in_public_api, camel_case_types
+
 import 'dart:async';
 import 'dart:io';
 
@@ -156,19 +158,17 @@ class _pdfViewState extends State<PdfViewer> {
         return Scaffold(
           backgroundColor: Colors.black,
           appBar: AppBar(
-            title: Text('Plugin example app'),
+            title: const Text('Plugin example app'),
           ),
           body: pdfFlePath != null ? Center(
             child: Column(
               children: <Widget>[
                   Expanded(
-                    child: Container(
-                      child: PdfView(path: pdfFlePath!),
-                    ),
+                    child: PdfView(path: pdfFlePath!),
                   )
               ],
             ),
-          ):CircularProgressIndicator(),
+          ):const CircularProgressIndicator(),
         );
       }),
     );

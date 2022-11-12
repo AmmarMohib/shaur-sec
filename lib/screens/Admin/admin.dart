@@ -22,14 +22,14 @@ class _AdminState extends State<Admin> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => HomePage()));
+                              builder: (context) => const HomePage()));
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back_ios_sharp,
               color: Color.fromRGBO(6, 49, 70, 1.0),
             ),
           ),
-          title: Text(
+          title: const Text(
             "Admin Page",
             style: TextStyle(color: Color.fromRGBO(6, 49, 70, 1.0)),
           ),
@@ -41,11 +41,11 @@ class _AdminState extends State<Admin> {
                 builder: (BuildContext context) {
                   return Dialog(
                     insetPadding:
-                        EdgeInsets.all(30),
+                        const EdgeInsets.all(30),
                     child: Center(
                       child: AlertDialog(
                         elevation: 0,
-                        title: Center(
+                        title: const Center(
                             child: Text(
                           "Choose a category",
                           style:
@@ -62,33 +62,33 @@ class _AdminState extends State<Admin> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                CreateGroup()));
+                                                const CreateGroup()));
                                   },
-                                  child: Text(
-                                    "Create Group",
-                                  ),
                                   style: ButtonStyle(
                                       backgroundColor:
                                           MaterialStateProperty.all(
-                                              Color.fromRGBO(6, 49, 70, 1.0))),
+                                              const Color.fromRGBO(6, 49, 70, 1.0))),
+                                  child: const Text(
+                                    "Create Group",
+                                  ),
                                 )),
                             SizedBox(
                                 width: MediaQuery.of(context).size.width,
                                 child: ElevatedButton(
                                   onPressed: () {},
-                                  child: Text(
-                                    "Add Contact",
-                                  ),
                                   style: ButtonStyle(
                                       backgroundColor:
                                           MaterialStateProperty.all(
-                                              Color.fromRGBO(6, 49, 70, 1.0))),
+                                              const Color.fromRGBO(6, 49, 70, 1.0))),
+                                  child: const Text(
+                                    "Add Contact",
+                                  ),
                                 )),
                             TextButton(
                                 onPressed: () {
                                   Navigator.pop(context);
                                 },
-                                child: Text("Close"))
+                                child: const Text("Close"))
                           ],
                         ),
                       ),
@@ -96,7 +96,7 @@ class _AdminState extends State<Admin> {
                   );
                 });
           },
-          child: Icon(Icons.add),
+          child: const Icon(Icons.add),
         ),
         body: Center(
           child: Column(
