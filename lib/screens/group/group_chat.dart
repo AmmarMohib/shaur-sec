@@ -43,12 +43,25 @@ class _GroupChatState extends State<GroupChat> {
   String corruptedPathPDF = "";
   final ref = FirebaseStorage.instance.ref().child('testimage');
   final TextEditingController _chatCon = TextEditingController();
+  final ScrollController _chatScrollCon = ScrollController();
+
 
   @override
   Widget build(BuildContext context) {
+ 
+ 
     print(widget.DOCId);
     return MaterialApp(
         home: Scaffold(
+  //         floatingActionButton: TextButton(child: Text("fsfd"), onPressed: (() {
+  //   // if (_chatScrollCon.hasClients) {
+  //   _chatScrollCon.animateTo(
+  //   _chatScrollCon.position.maxScrollExtent,
+  //   duration: Duration(milliseconds: 1),
+  //   curve: Curves.fastOutSlowIn,
+  // );     
+  //   // }           
+  //         })),          
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
@@ -95,136 +108,153 @@ class _GroupChatState extends State<GroupChat> {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Text("Loading");
                 }
+      
                 return Flexible(
-                  child: ListView(
-                    scrollDirection: Axis.vertical,
-                    shrinkWrap: true,
-                    children:
-                        snapshot.data!.docs.map((DocumentSnapshot document) {
-                      Map<String, dynamic> data =
-                          document.data()! as Map<String, dynamic>;
-                      var datac = data["ar0Z7hs8KsVuottCEpVm9WlPrCO2"
-                                  .toString()
-                                  .compareTo(
-                                      FirebaseAuth.instance.currentUser!.uid) >
-                              0
-                          ? "ar0Z7hs8KsVuottCEpVm9WlPrCO2" +
-                              FirebaseAuth.instance.currentUser!.uid
-                          : FirebaseAuth.instance.currentUser!.uid +
-                              "ar0Z7hs8KsVuottCEpVm9WlPrCO2"];
-                      var datao = data["uid"] != null
-                          ? data["uid"].toString().compareTo(
-                                      FirebaseAuth.instance.currentUser!.uid) >
-                                  0
-                              ? data["uid"] +
-                                  FirebaseAuth.instance.currentUser!.uid
-                              : FirebaseAuth.instance.currentUser!.uid +
-                                  data["uid"]
-                          : null;
-                      return Column(
-                        children: [
-                          //     Row(
-                          //       crossAxisAlignment: CrossAxisAlignment.end,
-                          //       mainAxisAlignment: MainAxisAlignment.end,
-                          //       children: <Widget>[
-                          //         // (datac != null)
+                  child: Container(
+                    height: MediaQuery.of(context).size.height * 0.85,
+                    child: ListView(
+                      controller: _chatScrollCon,
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      children:
+                          snapshot.data!.docs.map((DocumentSnapshot document) {
+                                        if (_chatScrollCon.hasClients) {
+    _chatScrollCon.animateTo(
+    _chatScrollCon.position.maxScrollExtent,
+    duration: Duration(milliseconds: 1),
+    curve: Curves.decelerate,
+   );     
+    } 
+                        Map<String, dynamic> data =
+                            document.data()! as Map<String, dynamic>;
+                        var datac = data["ar0Z7hs8KsVuottCEpVm9WlPrCO2"
+                                    .toString()
+                                    .compareTo(
+                                        FirebaseAuth.instance.currentUser!.uid) >
+                                0
+                            ? "ar0Z7hs8KsVuottCEpVm9WlPrCO2" +
+                                FirebaseAuth.instance.currentUser!.uid
+                            : FirebaseAuth.instance.currentUser!.uid +
+                                "ar0Z7hs8KsVuottCEpVm9WlPrCO2"];
+                        var datao = data["uid"] != null
+                            ? data["uid"].toString().compareTo(
+                                        FirebaseAuth.instance.currentUser!.uid) >
+                                    0
+                                ? data["uid"] +
+                                    FirebaseAuth.instance.currentUser!.uid
+                                : FirebaseAuth.instance.currentUser!.uid +
+                                    data["uid"]
+                            : null;
+                        return Container(
+                          // color: Col,
+                          // height: MediaQuery.of(context).size.height * 0.85,
+                          child: Column(
+                            children: [
+                              //     Row(
+                              //       crossAxisAlignment: CrossAxisAlignment.end,
+                              //       mainAxisAlignment: MainAxisAlignment.end,
+                              //       children: <Widget>[
+                              //         // (datac != null)
 
-                          //     //  datac != null ? ChatModel(data: data, datatext: data[datac], modelColor: Colors.red):Text("")
-                          //     ChatModel(modelColor: Color.fromARGB(255, 104, 156, 170),datatext: datao,data: data,)
-                          //   ]
-                          // )
+                              //     //  datac != null ? ChatModel(data: data, datatext: data[datac], modelColor: Colors.red):Text("")
+                              //     ChatModel(modelColor: Color.fromARGB(255, 104, 156, 170),datatext: datao,data: data,)
+                              //   ]
+                              // )
 
-                         FirebaseAuth.instance.currentUser!.uid == "ar0Z7hs8KsVuottCEpVm9WlPrCO2" ?
-                         Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: <Widget>[
-                              // SizedBox(height: 100,),
-                              (datac != null)
-                                  ? ChatModel(data: data, datatext: datac, modelColor: Color.fromARGB(255, 172, 180, 182))
-                                  : datao != null &&
-                                          FirebaseAuth
-                                                  .instance.currentUser!.uid ==
-                                              "ar0Z7hs8KsVuottCEpVm9WlPrCO2"
-                                      ? Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 5.0),
-                                          child: ChatModel(
-                                            modelColor: Color.fromARGB(255, 23, 53, 61),
-                                            datatext: data[datao],
-                                            data: data,
-                                          ),
-                                        )
-                                      : Text(""),
-                                      // SizedBox(height: 1000,)
-                            ],
-                          ):
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: <Widget>[
-                              (datac != null)
-                                  ? ChatModel(data: data, datatext: datac, modelColor: Color.fromARGB(255, 37, 94, 123))
-                                  : datao != null &&
-                                          FirebaseAuth
-                                                  .instance.currentUser!.uid ==
-                                              "ar0Z7hs8KsVuottCEpVm9WlPrCO2"
-                                      ? Padding(
-                                          padding:
-                                              const EdgeInsets.only(right: 8.0),
-                                          child: ChatModel(
-                                            modelColor: Color.fromARGB(255, 37, 94, 123),
-                                            datatext: data[datao],
-                                            data: data,
-                                          ),
-                                        )
-                                        
-                                      : Text(""),
+                             FirebaseAuth.instance.currentUser!.uid == "ar0Z7hs8KsVuottCEpVm9WlPrCO2" ?
+                             Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: <Widget>[
+                                  // SizedBox(height: 100,),
+                                  (datac != null)
+                                      ? ChatModel(data: data, datatext: datac, modelColor: Color.fromARGB(255, 172, 180, 182))
+                                      : datao != null &&
+                                              FirebaseAuth
+                                                      .instance.currentUser!.uid ==
+                                                  "ar0Z7hs8KsVuottCEpVm9WlPrCO2"
+                                          ? Padding(
+                                              padding:
+                                                  const EdgeInsets.only(left: 5.0),
+                                              child: ChatModel(
+                                                modelColor: Color.fromARGB(255, 23, 53, 61),
+                                                datatext: data[datao],
+                                                data: data,
+                                              ),
+                                            )
+                                          : Text(""),
+                                          // SizedBox(height: 1000,)
+                                ],
+                              ):
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: <Widget>[
+                                  (datac != null)
+                                      ? ChatModel(data: data, datatext: datac, modelColor: Color.fromARGB(255, 37, 94, 123))
+                                      : datao != null &&
+                                              FirebaseAuth
+                                                      .instance.currentUser!.uid ==
+                                                  "ar0Z7hs8KsVuottCEpVm9WlPrCO2"
+                                          ? Padding(
+                                              padding:
+                                                  const EdgeInsets.only(right: 8.0),
+                                              child: ChatModel(
+                                                modelColor: Color.fromARGB(255, 37, 94, 123),
+                                                datatext: data[datao],
+                                                data: data,
+                                              ),
+                                            )
+                                            
+                                          : Text(""),
+                                ],
+                              ),
+                              SizedBox(
+                                // height: 100,
+                              ),
+                              data["ar0Z7hs8KsVuottCEpVm9WlPrCO2"] != null
+                                  ? FirebaseAuth.instance.currentUser!.uid == "ar0Z7hs8KsVuottCEpVm9WlPrCO2" ? 
+                                  Padding(
+                                      padding:
+                                          const EdgeInsets.symmetric(vertical: 10,horizontal: 5),
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.end,
+                                        mainAxisAlignment: MainAxisAlignment.end,
+                                        children: <Widget>[
+                                          ChatModel(
+                                              data: data,
+                                              datatext: data[
+                                                  "ar0Z7hs8KsVuottCEpVm9WlPrCO2"],
+                                              modelColor: Color.fromARGB(255, 37, 94, 123))]))
+                                  : Padding(
+                                     padding:
+                                          const EdgeInsets.symmetric(vertical: 10),
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        children: <Widget>[
+                                          ChatModel(
+                                              data: data,
+                                              datatext: data[
+                                                  "ar0Z7hs8KsVuottCEpVm9WlPrCO2"],
+                                              modelColor: Color.fromARGB(255, 172, 180, 182))
+                                        ],
+                                      ),
+                                    )
+                                  : Text(""),
+                              //
                             ],
                           ),
-                          SizedBox(
-                            // height: 100,
-                          ),
-                          data["ar0Z7hs8KsVuottCEpVm9WlPrCO2"] != null
-                              ? FirebaseAuth.instance.currentUser!.uid == "ar0Z7hs8KsVuottCEpVm9WlPrCO2" ? 
-                              Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 10,horizontal: 5),
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.end,
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: <Widget>[
-                                      ChatModel(
-                                          data: data,
-                                          datatext: data[
-                                              "ar0Z7hs8KsVuottCEpVm9WlPrCO2"],
-                                          modelColor: Color.fromARGB(255, 37, 94, 123))]))
-                              : Padding(
-                                 padding:
-                                      const EdgeInsets.symmetric(vertical: 10),
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: <Widget>[
-                                      ChatModel(
-                                          data: data,
-                                          datatext: data[
-                                              "ar0Z7hs8KsVuottCEpVm9WlPrCO2"],
-                                          modelColor: Color.fromARGB(255, 172, 180, 182))
-                                    ],
-                                  ),
-                                )
-                              : Text(""),
-                          //
-                        ],
-                      );
-                    }).toList(),
+                        );
+                      }).toList(),
+                    ),
                   ),
                 );
               },
             ),
+            // SizedBox(height: MediaQuery.of(context).size.height * 0.7,),
             Container(
                 padding: const EdgeInsets.symmetric(vertical: 2.0),
                 child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
@@ -434,6 +464,7 @@ class DownloadButton extends StatelessWidget {
 
   Future<void> _downloadFile() async {
     print('downloading fle');
+
     DownloadService downloadService =
         kIsWeb ? WebDownloadService() : MobileDownloadService();
     await downloadService.download(url: url, name: name);
